@@ -1,37 +1,39 @@
-package chat.comum.conexao;
+package chat.comum.conexao.cliente;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 
-public class ServidorCanal {
+import chat.comum.conexao.Requisicao;
+import chat.comum.conexao.Resposta;
 
+public class ClienteCanal {
 	private Socket socket;
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
-	
-	public ServidorCanal(Socket _socket) throws IOException {
+
+	public ClienteCanal(Socket _socket) throws IOException {
 		socket = _socket;
 	}
 
-	public void enviar(Resposta _resposta) throws IOException {
-		getOut().writeObject( _resposta);
+	public <T extends Serializable> void enviar(Requisicao<T> _requisição) throws IOException {
+		getOut().writeObject(_requisição);
 	}
 
-	public Requisicao receber() throws IOException, ClassNotFoundException {
-		return (Requisicao) getIn().readObject();
+	@SuppressWarnings("unchecked")
+	public <T extends Serializable> Resposta<T> receber() throws IOException, ClassNotFoundException {
+		return (Resposta<T>) getIn().readObject();
 	}
 
 	public void fechar() throws IOException {
 		socket.close();
 	}
 
-
 	private Socket getSocket() {
 		return socket;
 	}
-
 
 	private ObjectInputStream getIn() throws IOException {
 		if(in == null ) {
@@ -40,7 +42,6 @@ public class ServidorCanal {
 		return in;
 	}
 
-	
 	private ObjectOutputStream getOut() throws IOException {
 		if(out == null ) {
 			out = new ObjectOutputStream(getSocket().getOutputStream());

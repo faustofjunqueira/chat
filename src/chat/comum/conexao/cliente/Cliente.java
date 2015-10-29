@@ -1,13 +1,18 @@
-package chat.comum.conexao;
+package chat.comum.conexao.cliente;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.Socket;
+
+import chat.comum.conexao.Requisicao;
+import chat.comum.conexao.Resposta;
+import chat.comum.conexao.servidor.Servidor;
 
 public class Cliente {
 	private String ip;
 	private short porta;
 	private ClienteCanal canal;
-	
+
 	@SuppressWarnings("unused")
 	public Cliente() {
 		ip = Servidor.IP_DEFAULT;
@@ -18,17 +23,24 @@ public class Cliente {
 		this.ip = ip;
 		this.porta = porta;
 	}
-	
-	public void conectar() throws IOException{
+
+	public void conectar() throws IOException {
 		Socket socket = new Socket(getIp(), getPorta());
 		canal = new ClienteCanal(socket);
 	}
 
-	public Resposta Dispatcher(Requisicao req) throws ClassNotFoundException, IOException{
+	@SuppressWarnings("unchecked")
+	public <T extends Serializable> T Dispatcher(Requisicao<T> req) throws Exception {
 		getCanal().enviar(req);
-		return getCanal().receber();
+		Resposta<?> resposta = getCanal().receber();
+
+		if (resposta.isErro()) {
+			throw ((Resposta<Exception>) resposta).getDados();
+		}
+
+		return ((Resposta<T>) resposta).getDados();
 	}
-	
+
 	private String getIp() {
 		return ip;
 	}
@@ -40,7 +52,7 @@ public class Cliente {
 	private ClienteCanal getCanal() {
 		return canal;
 	}
-	
+
 	@Override
 	protected void finalize() throws Throwable {
 		canal.fechar();
