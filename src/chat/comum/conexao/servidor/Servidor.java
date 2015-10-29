@@ -21,22 +21,53 @@ public class Servidor {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void executar() throws IOException, ClassNotFoundException {
-		ServidorCanal canal = new ServidorCanal(socketBemVindo.accept());
 		while (true) {
-			Requisicao<String> req = (Requisicao<String>) canal.receber();
-			Resposta res;
-			try{
-				Class<?> classe = Class.forName(req.getClasse());
-				Method metodo = classe.getDeclaredMethod(req.getAcao(), Requisicao.class);
-				res = new Resposta(Resposta.COD_SUCESSO,(Serializable) metodo.invoke(classe.newInstance(),req));
-				res.setErro(false);
-			}catch(Exception e){
+			try {
+				ServidorCanal canal = new ServidorCanal(socketBemVindo.accept());
+				new Thread(() -> {
+					try {
+						manipuladorDeCanal(canal);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}).start();
+			} catch (Exception e) {
 				e.printStackTrace();
-				res = new Resposta<Exception>(Resposta.COD_ERRO_PADRAO, e);
-				res.setErro(true);
 			}
-			canal.enviar(res);
 		}
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private void manipuladorDeCanal(ServidorCanal canal) throws IOException, ClassNotFoundException {
+		boolean loop = true;
+		while (loop) {
+			Requisicao<String> req = (Requisicao<String>) canal.receber();
+			loop = fecharCanal(req);
+			Resposta res = resolveRequisicao(req);
+			canal.enviar(res);
+		}
+		canal.fechar();
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private Resposta resolveRequisicao(Requisicao<?> req) {
+		Resposta res;
+		try {
+			Class<?> classe = Class.forName(req.getClasse());
+			Method metodo = classe.getDeclaredMethod(req.getAcao(), Requisicao.class);
+			res = new Resposta(Resposta.COD_SUCESSO, (Serializable) metodo.invoke(classe.newInstance(), req));
+			res.setErro(false);
+		} catch (Exception e) {
+			e.printStackTrace();
+			res = new Resposta<Exception>(Resposta.COD_ERRO_PADRAO, e);
+			res.setErro(true);
+		}
+		return res;
+	}
+
+	private boolean fecharCanal(Requisicao req) {
+		String fecharCanal = req.getCabecalho().buscar(Requisicao.CHAVE_FECHAR_CONEXAO);
+		return fecharCanal == null;
+	}
+	
 }
