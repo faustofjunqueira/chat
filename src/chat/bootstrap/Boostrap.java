@@ -3,44 +3,40 @@ package chat.bootstrap;
 import java.io.IOException;
 
 import chat.comum.conexao.Requisicao;
-import chat.comum.conexao.Resposta;
-import chat.comum.conexao.TesteDado;
-import chat.comum.conexao.cliente.Cliente;
-import chat.comum.conexao.servidor.Servidor;
+import chat.comum.conexao.cliente.Dispatcher;
+import chat.comum.conexao.servidor.ServidorContainer;
 
-public class Boostrap {	
-	
-	private static void startApplication(){	
-		
+public class Boostrap {
+
+	private static void comecarAplicacaoCliente() {
+		try {
+			Dispatcher.Bootstap(Dispatcher.IP_DEFAULT, Dispatcher.PORTA_DEFAULT);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
+	private static void comecarAplicacaoServidor() {
+		try {
+			System.out.println("Servidor Start");
+			ServidorContainer.Instance().IniciarServidor();
+			ServidorContainer.Instance().run();
+			System.out.println("Fim servidor");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static void main(String[] args) {
-		startApplication();
-		/*
-		if(args[0].equals("server")) {
-			try {
-				(new Servidor()).executar();
-			} catch (IOException | ClassNotFoundException e) {
-				e.printStackTrace();
-			}
 
+		if (args[0].equals("server")) {
+			comecarAplicacaoServidor();
 		} else {
-			Cliente cliente = new Cliente();
-			try {
-				cliente.conectar();
-				
-				TesteDado t;
-				Requisicao<TesteDado> req = new Requisicao<TesteDado>("chat.comum.conexao.TesteController junda", new TesteDado("jundinhas"));
-				req.getCabecalho().adicionar(Requisicao.CHAVE_FECHAR_CONEXAO, "true");
-				
-				t = cliente.Dispatcher(req);
-				System.out.println(t.msg);
-				t = cliente.Dispatcher(new Requisicao<TesteDado>("chat.comum.conexao.TesteController junda2",new TesteDado("oi mundo")));
-				System.out.println(t.msg);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-
-		}*/
+			comecarAplicacaoCliente();
+			
+			Teste t = new Teste("oi mundo");
+			Dispatcher<Teste> dispatcher = Dispatcher.Invocar(new Requisicao<Teste>("TesteController Junda", t));
+			dispatcher.pronto((data) -> System.out.println(data.msg));
+		}
 	}
 }

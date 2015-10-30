@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.List;
 
 import chat.comum.conexao.Requisicao;
 import chat.comum.conexao.Resposta;
@@ -18,12 +19,12 @@ public class ServidorCanal {
 		socket = _socket;
 	}
 
-	public void enviar(Resposta<?> _resposta) throws IOException {
+	public void enviar(List<Resposta<?>> _resposta) throws IOException {
 		getOut().writeObject( _resposta);
 	}
 
-	public Requisicao<?> receber() throws IOException, ClassNotFoundException {
-		return (Requisicao<?>) getIn().readObject();
+	public List<Requisicao<?>> receber() throws IOException, ClassNotFoundException {
+		return (List<Requisicao<?>>) getIn().readObject();
 	}
 
 	public void fechar() throws IOException {

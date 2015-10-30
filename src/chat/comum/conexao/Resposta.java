@@ -9,6 +9,8 @@ public class Resposta<T extends Serializable> implements Serializable {
 	
 	private short status;
 	private boolean isErro;
+	private String hash;
+
 	T dados;
 	
 	public Resposta(short status, T dados) {
@@ -40,6 +42,14 @@ public class Resposta<T extends Serializable> implements Serializable {
 		this.dados = dados;
 	}
 	
+	public String getHash() {
+		return hash;
+	}
+
+	public void setHash(String hash) {
+		this.hash = hash;
+	}
+
 	@Override
 	public String toString() {
 		return "status: "+status+" isErro: "+isErro+" dado: "+(String) dados;

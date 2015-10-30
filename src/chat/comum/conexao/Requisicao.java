@@ -35,6 +35,7 @@ public class Requisicao<T extends Serializable> implements Serializable {
 	public static Hashtable<String, String> Cabecalho = new Hashtable<String,String>();
 	public static String CHAVE_FECHAR_CONEXAO = "req_fecharConexao";
 	
+	private String hash;
 	private String classe;
 	private String acao;
 	T dados;
@@ -76,5 +77,16 @@ public class Requisicao<T extends Serializable> implements Serializable {
 	public Cabecalho getCabecalho(){
 		return cabecalho;
 	}
+
+	
+	public String getHash() {
+		return hash;
+	}
+
+	public void setHash(String hash) {
+		this.hash = hash;
+	}
+	
+	
 	
 }
