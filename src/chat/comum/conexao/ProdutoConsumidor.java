@@ -3,8 +3,6 @@ package chat.comum.conexao;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.swing.internal.plaf.synth.resources.synth;
-
 public class ProdutoConsumidor <T> extends Thread{
 
 	private ArrayList<T> buffer; // Fixado em ArrayList pq precisa-se do clone
@@ -20,7 +18,8 @@ public class ProdutoConsumidor <T> extends Thread{
 	
 	public synchronized void adicionar(List<T> e) {
 		buffer.addAll(e);
-		notifyAll();
+		System.out.println(String.format("(%s) (%d) Notify ", super.hashCode() ,Thread.currentThread().getId()));
+		notify();
 	}
 	
 	public synchronized void remove(T e) {
@@ -29,11 +28,15 @@ public class ProdutoConsumidor <T> extends Thread{
 	
 	@SuppressWarnings("unchecked")
 	public synchronized List<T> extrair() throws InterruptedException {
+		System.out.println(String.format("(%s) (%d) Tenta Pegar buffer size %d", super.hashCode(), Thread.currentThread().getId(), buffer.size()));
 		if( buffer.size() == 0 ) {
+			System.out.println(String.format("(%s) (%d) Extrair em wait", super.hashCode(), Thread.currentThread().getId()));
 			wait();
 		}
+		System.out.println(String.format("(%s) (%d) Conseguiu extrair", super.hashCode(), Thread.currentThread().getId()));
 		List<T> e = (List<T>) buffer.clone();
 		buffer.clear();
+		System.out.println(String.format("(%s) (%d) saiu extrair", super.hashCode(), Thread.currentThread().getId()));
 		return e;
 	}
 	

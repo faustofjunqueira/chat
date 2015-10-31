@@ -46,6 +46,7 @@ public class Requisicao<T extends Serializable> implements Serializable {
 		this.classe = classe;
 		this.acao = acao;
 		this.dados = dados;
+		this.hash = GeradorSerial.Criar();
 		cabecalho = new Cabecalho(Cabecalho);
 	}
 
@@ -54,6 +55,7 @@ public class Requisicao<T extends Serializable> implements Serializable {
 		this.classe = splitado[0];
 		this.acao = splitado[1];
 		this.dados = dados;
+		this.hash = GeradorSerial.Criar();
 		cabecalho = new Cabecalho(Cabecalho);
 	}
 

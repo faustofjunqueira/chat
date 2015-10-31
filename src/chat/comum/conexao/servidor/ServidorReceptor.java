@@ -13,11 +13,14 @@ class ServidorReceptor extends ProdutoConsumidor<Requisicao<?>>{
 	}
 
 	private void processo() throws ClassNotFoundException, IOException{
+		System.out.println("(ServidorReceptor) Aguarda Recebimento");
 		adicionar(contexto.getCanal().receber());
+		System.out.println("(ServidorReceptor) Adicionado");
 	}
 
 	@Override
-	public synchronized void run() {
+	public void run() {
+		System.out.println(String.format("(ServidorReceptor) Thread Id %d", Thread.currentThread().getId()));
 		//TODO: while true
 		while(true){
 			try {

@@ -35,9 +35,11 @@ public class ServidorContainer implements Runnable{
 		ServidorCanal canal = new ServidorCanal(socket_aceito);
 		ServidorEmissor emissor = new ServidorEmissor();
 		ServidorReceptor receptor = new ServidorReceptor();
-		ServidorManipuladorRequisicao manipulador = new ServidorManipuladorRequisicao(emissor, receptor);
+		ServidorManipuladorRequisicao manipulador = new ServidorManipuladorRequisicao();
 		ServidorContexto contexto = new ServidorContexto(emissor, receptor, manipulador, canal);
 		listaClientesConectados.put(GeradorSerial.Criar(), contexto);
+		contexto.start();
+		System.out.println("(ServidorContainer) Criado contexto do cliente");
 	}
 	
 	public void run() {

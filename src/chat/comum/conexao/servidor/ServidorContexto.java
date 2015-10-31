@@ -44,10 +44,11 @@ public class ServidorContexto {
 	public void start(){
 		this.emissor.setContexto(this);
 		this.receptor.setContexto(this);
+		this.manipulador.setContexto(this);
 		
+		this.manipulador.start();
 		this.emissor.start();
 		this.receptor.start();
-		this.manipulador.start();
 	}
 	
 }

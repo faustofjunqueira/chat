@@ -35,8 +35,10 @@ public class Boostrap {
 			comecarAplicacaoCliente();
 			
 			Teste t = new Teste("oi mundo");
-			Dispatcher<Teste> dispatcher = Dispatcher.Invocar(new Requisicao<Teste>("TesteController Junda", t));
-			dispatcher.pronto((data) -> System.out.println(data.msg));
+			System.out.println("(Main) Disparando Dispatcher");
+			Dispatcher<Teste> dispatcher = Dispatcher.Invocar(new Requisicao<Teste>("chat.bootstrap.TesteController Junda", t));
+			System.out.println("(Main) Disparado Dispatcher");
+			dispatcher.pronto((data) -> System.out.println("Executado > "+data.msg));
 		}
 	}
 }

@@ -31,12 +31,10 @@ public class Dispatcher <T extends Serializable>{
 	private Requisicao<T> requisicao;
 	private Resposta<T> resposta;
 	private EnumEmissorStatus status;
-	private String hash;
 	private Consumer<T> funcao_pronto;	
 	
 	public Dispatcher(Requisicao<T> _requisicao) {
 		requisicao = _requisicao;
-		hash = GeradorSerial.Criar();
 		resposta = null;
 		status = EnumEmissorStatus.INDEFINIDO;
 	}
@@ -59,7 +57,7 @@ public class Dispatcher <T extends Serializable>{
 		}
 	}
 
-	synchronized void respostaObtida(Resposta<T> reposta){
+	public synchronized void respostaObtida(Resposta<T> reposta){
 		setResposta(reposta);
 		if(funcao_pronto != null){
 			perfome_pronto();
@@ -83,7 +81,7 @@ public class Dispatcher <T extends Serializable>{
 	}
 
 	public String getHash() {
-		return hash;
+		return getRequisicao().getHash();
 	}
 
 	public void setStatus(EnumEmissorStatus status) {
