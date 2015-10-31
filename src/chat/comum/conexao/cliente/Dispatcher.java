@@ -41,9 +41,17 @@ public class Dispatcher <T extends Serializable>{
 	
 	public static <T extends Serializable> Dispatcher<T> Invocar(Requisicao<T> _requisicao){
 		Dispatcher<T> dispatcher = new Dispatcher<T>(_requisicao);
-		dispatcher.setStatus(EnumEmissorStatus.ESPERANDO);
-		ClienteContexto.Instance().adicionarDispatcher(dispatcher);
+		dispatcher.encaminhar();
 		return dispatcher;
+	}
+	
+	public void reInvocar(){
+		encaminhar();
+	}
+	
+	private void encaminhar(){
+		setStatus(EnumEmissorStatus.ESPERANDO);
+		ClienteContexto.Instance().adicionarDispatcher(this);
 	}
 	
 	private void perfome_pronto(){
