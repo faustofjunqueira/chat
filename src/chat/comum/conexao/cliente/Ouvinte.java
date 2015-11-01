@@ -5,35 +5,26 @@ import java.util.function.Consumer;
 
 import chat.comum.conexao.Requisicao;
 
-public class Ouvinte<T extends Serializable> {
+public class Ouvinte<T extends Serializable> extends Dispatcher<T>{
 	
-	public static <T extends Serializable> Ouvinte<T> Invocar(Requisicao<T> _requisicao, Consumer<T> funcaoPronto, long TempoDeAtraso){
-		Dispatcher<T> dispatcher = Dispatcher.Invocar(_requisicao);
-		dispatcher.pronto(funcaoPronto);
-		return new Ouvinte<T>(dispatcher,TempoDeAtraso);
+	private Ouvinte(Requisicao<T> _requisicao) {
+		super(_requisicao);
 	}
 	
-	private Dispatcher<T> dispatcher;
-	private long tempoDeAtraso;
-	
-	public Ouvinte(Dispatcher<T> dispatcher, long tempoDeAtraso) {
-		this.dispatcher = dispatcher;
-		this.tempoDeAtraso = tempoDeAtraso;
+	Ouvinte(Requisicao<T> _requisicao, Consumer<T> funcaoPronto) {
+		super(_requisicao);
+		pronto(funcaoPronto);
 	}
 
-	public Dispatcher<T> getDispatcher() {
-		return dispatcher;
-	}
-
-	public long getTempoDeAtraso() {
-		return tempoDeAtraso;
-	}
-
-	public void executar() throws InterruptedException{
-		while(true){ // TODO: while true
-			getDispatcher().reInvocar();
-			Thread.sleep(getTempoDeAtraso());
-		}
+	public static <T extends Serializable> Ouvinte<T> Invocar(Requisicao<T> _requisicao, Consumer<T> funcaoPronto){
+		Ouvinte<T> ouvinte = new Ouvinte<T>(_requisicao,funcaoPronto);
+		ouvinte.encaminhar();
+		return ouvinte;
 	}
 	
+	@Override
+	protected void perfome_pronto() {
+		getFuncaoPronto().accept(getResposta().getDados());
+	}
+
 }

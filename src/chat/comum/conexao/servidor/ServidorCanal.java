@@ -15,19 +15,19 @@ public class ServidorCanal {
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
 	
-	public ServidorCanal(Socket _socket) throws IOException {
+	ServidorCanal(Socket _socket) throws IOException {
 		socket = _socket;
 	}
 
-	public void enviar(List<Resposta<?>> _resposta) throws IOException {
+	void enviar(List<Resposta<?>> _resposta) throws IOException {
 		getOut().writeObject( _resposta);
 	}
 
-	public List<Requisicao<?>> receber() throws IOException, ClassNotFoundException {
+	List<Requisicao<?>> receber() throws IOException, ClassNotFoundException {
 		return (List<Requisicao<?>>) getIn().readObject();
 	}
 
-	public void fechar() throws IOException {
+	void fechar() throws IOException {
 		socket.close();
 	}
 

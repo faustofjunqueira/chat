@@ -16,20 +16,20 @@ public class ClienteCanal {
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
 
-	public ClienteCanal(Socket _socket) {
+	ClienteCanal(Socket _socket) {
 		socket = _socket;
 	}
 
-	public void enviar(List<Requisicao<?>> _listaRequisicao) throws IOException {
+	void enviar(List<Requisicao<?>> _listaRequisicao) throws IOException {
 		getOut().writeObject(_listaRequisicao);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Resposta<?>> receber() throws IOException, ClassNotFoundException {
+	List<Resposta<?>> receber() throws IOException, ClassNotFoundException {
 		return (List<Resposta<?>>) getIn().readObject();
 	}
 
-	public void fechar() throws IOException {
+	void fechar() throws IOException {
 		socket.close();
 	}
 

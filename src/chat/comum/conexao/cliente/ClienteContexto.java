@@ -1,14 +1,9 @@
 package chat.comum.conexao.cliente;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import chat.comum.conexao.ProdutoConsumidor;
-import chat.comum.conexao.Requisicao;
-import chat.comum.conexao.Resposta;
 
 //TODO: Remover o Dispatcher do Map
 class ClienteContexto {
@@ -22,7 +17,7 @@ class ClienteContexto {
 		return objetoSingleton;
 	}
 
-	private Map<String, Dispatcher> BufferDeEnvio;
+	private Map<String, Dispatcher<?>> BufferDeEnvio;
 	private ClienteCanal canal;
 	private Thread EmissorThread;
 	private Thread ReceptorThread;
@@ -31,47 +26,47 @@ class ClienteContexto {
 		BufferDeEnvio = new HashMap<>();
 	}
 	
-	public void iniciarContexto(){
+	void iniciarContexto(){
 		ReceptorThread = new ReceptorThread();
 		EmissorThread = new EmissorThread();
 		ReceptorThread.start();
 		EmissorThread.start();
 	}
 
-	public void setCanal(ClienteCanal canal) {
+	void setCanal(ClienteCanal canal) {
 		this.canal = canal;
 	}
 
-	public ClienteCanal getCanal() {
+	ClienteCanal getCanal() {
 		return canal;
 	}
 
-	public void atualizaStatus(List<Dispatcher> lista, EnumEmissorStatus status) {
-		for (Dispatcher d : lista) {
+	void atualizaStatus(List<Dispatcher<?>> lista, EnumEmissorStatus status) {
+		for (Dispatcher<?> d : lista) {
 			d.setStatus(status);
 		}
 	}
 
-	public Dispatcher getDispatcherPeloHash(String hash) {
+	Dispatcher<?> getDispatcherPeloHash(String hash) {
 		System.out.println("GetDispatcherHash: buffer size: "+BufferDeEnvio.size());
 		return BufferDeEnvio.get(hash);
 	}
 
-	public synchronized void adicionarDispatcher(Dispatcher dispatcher) {
+	synchronized void adicionarDispatcher(Dispatcher<?> dispatcher) {
 		BufferDeEnvio.put(dispatcher.getHash(), dispatcher);
 		notify();
 	}
 
-	public synchronized void removeDispatcher(Dispatcher dispatcher) {
+	synchronized void removeDispatcher(Dispatcher<?> dispatcher) {
 		BufferDeEnvio.remove(dispatcher);
 	}
 
-	public synchronized List<Dispatcher> getListaRequisicaoParaEnviar() throws InterruptedException {
-		List<Dispatcher> lista = new ArrayList<>();
+	synchronized List<Dispatcher<?>> getListaRequisicaoParaEnviar() throws InterruptedException {
+		List<Dispatcher<?>> lista = new ArrayList<>();
 		EnumEmissorStatus status = EnumEmissorStatus.ESPERANDO;
 
 		// TODO: Limitar o tamanho da lista talvez
-		for (Dispatcher d : BufferDeEnvio.values()) {
+		for (Dispatcher<?> d : BufferDeEnvio.values()) {
 			if (d.getStatus() == status) {
 				lista.add(d);
 			}

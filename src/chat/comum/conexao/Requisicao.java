@@ -2,45 +2,48 @@ package chat.comum.conexao;
 
 import java.io.Serializable;
 import java.util.Hashtable;
+import java.util.Set;
 
 public class Requisicao<T extends Serializable> implements Serializable {
-	
-	public class Cabecalho implements Serializable{
-		private Hashtable<String,String> cabecalho; 
-		
+
+	public class Cabecalho implements Serializable {
+		private Hashtable<String, String> cabecalho;
+
 		public Cabecalho(Hashtable<String, String> cabecalho) {
 			this.cabecalho = cabecalho;
 		}
-		
+
+		public Set<String> TodasChaves() {
+			return this.cabecalho.keySet();
+		}
+
 		public void adicionar(String chave, String valor) {
-			if(cabecalho.containsKey(chave)) {
+			if (cabecalho.containsKey(chave)) {
 				cabecalho.replace(chave, valor);
 			} else {
 				cabecalho.put(chave, valor);
 			}
 		}
-		
+
 		public String buscar(String chave) {
 			return cabecalho.getOrDefault(chave, null);
 		}
-		
+
 		public void remover(String chave, String valor) {
-			if(cabecalho.containsKey(chave)) {
+			if (cabecalho.containsKey(chave)) {
 				cabecalho.remove(chave);
 			}
 		}
-		
+
 	}
-	
-	public static Hashtable<String, String> Cabecalho = new Hashtable<String,String>();
-	public static String CHAVE_FECHAR_CONEXAO = "req_fecharConexao";
-	
+
+	public static Hashtable<String, String> Cabecalho = new Hashtable<String, String>();
+
 	private String hash;
 	private String classe;
 	private String acao;
 	T dados;
 	private Cabecalho cabecalho;
-	
 
 	public Requisicao(String classe, String acao, T dados) {
 		this.classe = classe;
@@ -51,9 +54,11 @@ public class Requisicao<T extends Serializable> implements Serializable {
 	}
 
 	public Requisicao(String rota, T dados) {
-		String splitado[] = rota.split(" ");
-		this.classe = splitado[0];
-		this.acao = splitado[1];
+		if (rota != null) {
+			String splitado[] = rota.split(" ");
+			this.classe = splitado[0];
+			this.acao = splitado[1];
+		}
 		this.dados = dados;
 		this.hash = GeradorSerial.Criar();
 		cabecalho = new Cabecalho(Cabecalho);
@@ -75,12 +80,11 @@ public class Requisicao<T extends Serializable> implements Serializable {
 	public T getDados() {
 		return dados;
 	}
-	
-	public Cabecalho getCabecalho(){
+
+	public Cabecalho getCabecalho() {
 		return cabecalho;
 	}
 
-	
 	public String getHash() {
 		return hash;
 	}
@@ -88,7 +92,4 @@ public class Requisicao<T extends Serializable> implements Serializable {
 	public void setHash(String hash) {
 		this.hash = hash;
 	}
-	
-	
-	
 }

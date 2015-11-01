@@ -1,5 +1,10 @@
 package chat.comum.conexao.servidor;
 
+import java.io.IOException;
+import java.io.Serializable;
+
+import chat.comum.conexao.Resposta;
+
 public class ServidorContexto {
 
 	private ServidorEmissor emissor;
@@ -7,7 +12,7 @@ public class ServidorContexto {
 	private ServidorManipuladorRequisicao manipulador;
 	private ServidorCanal canal;
 	
-	public ServidorContexto(ServidorEmissor emissor, ServidorReceptor receptor,
+	ServidorContexto(ServidorEmissor emissor, ServidorReceptor receptor,
 			ServidorManipuladorRequisicao manipulador, ServidorCanal canal) {
 		super();
 		this.emissor = emissor;
@@ -16,32 +21,44 @@ public class ServidorContexto {
 		this.canal = canal;
 	}
 	
-	public ServidorEmissor getEmissor() {
+	ServidorEmissor getEmissor() {
 		return emissor;
 	}
-	public void setEmissor(ServidorEmissor emissor) {
+	void setEmissor(ServidorEmissor emissor) {
 		this.emissor = emissor;
 	}
-	public ServidorReceptor getReceptor() {
+	ServidorReceptor getReceptor() {
 		return receptor;
 	}
-	public void setReceptor(ServidorReceptor receptor) {
+	void setReceptor(ServidorReceptor receptor) {
 		this.receptor = receptor;
 	}
-	public ServidorManipuladorRequisicao getManipulador() {
+	ServidorManipuladorRequisicao getManipulador() {
 		return manipulador;
 	}
-	public void setManipulador(ServidorManipuladorRequisicao manipulador) {
+	void setManipulador(ServidorManipuladorRequisicao manipulador) {
 		this.manipulador = manipulador;
 	}
-	public ServidorCanal getCanal() {
+	ServidorCanal getCanal() {
 		return canal;
 	}
-	public void setCanal(ServidorCanal canal) {
+	
+	void setCanal(ServidorCanal canal) {
 		this.canal = canal;
 	}
 	
-	public void start(){
+	public <T extends Serializable> void enviarRespostaCliente(Resposta<T> resposta) {
+		this.getEmissor().adicionar(resposta);
+	}
+	
+	public void fechar() throws IOException {
+		this.getManipulador().interrupt();
+		this.getEmissor().interrupt();
+		this.getReceptor().interrupt();
+		this.getCanal().fechar();
+	}
+	
+	void start(){
 		this.emissor.setContexto(this);
 		this.receptor.setContexto(this);
 		this.manipulador.setContexto(this);

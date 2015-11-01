@@ -31,7 +31,7 @@ public class ServidorContainer implements Runnable{
 		socketBemVindo = new ServerSocket(PORTA_DEFAULT);
 	}
 	
-	public void aceitarClientes(Socket socket_aceito) throws IOException{
+	private void aceitarClientes(Socket socket_aceito) throws IOException{
 		ServidorCanal canal = new ServidorCanal(socket_aceito);
 		ServidorEmissor emissor = new ServidorEmissor();
 		ServidorReceptor receptor = new ServidorReceptor();
@@ -39,14 +39,16 @@ public class ServidorContainer implements Runnable{
 		ServidorContexto contexto = new ServidorContexto(emissor, receptor, manipulador, canal);
 		listaClientesConectados.put(GeradorSerial.Criar(), contexto);
 		contexto.start();
-		System.out.println("(ServidorContainer) Criado contexto do cliente");
+	}
+	
+	public ServidorContexto getCliente(String hashId) {
+		return listaClientesConectados.get(hashId);
 	}
 	
 	public void run() {
 		//TODO: while true
 		while(true){
 			try {
-				System.out.println("Esperando cliente");
 				aceitarClientes(socketBemVindo.accept());
 			} catch (IOException e) {
 				e.printStackTrace();

@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import chat.comum.conexao.Requisicao;
 import chat.comum.conexao.cliente.Dispatcher;
-import chat.comum.conexao.cliente.Ouvinte;
 import chat.comum.conexao.servidor.ServidorContainer;
 
 public class Boostrap {
@@ -35,20 +34,26 @@ public class Boostrap {
 		} else {
 			comecarAplicacaoCliente();
 			
-//			Teste t = new Teste("oi mundo");
-//			System.out.println("(Main) Disparando Dispatcher");
-//			Dispatcher<Teste> dispatcher = Dispatcher.Invocar(new Requisicao<Teste>("chat.bootstrap.TesteController Junda", t));
-//			System.out.println("(Main) Disparado Dispatcher");
-//			dispatcher.pronto((data) -> System.out.println("Executado > "+data.msg));
+// REQUISIÇÃO SIMPLES			
+			Teste t = new Teste("oi mundo");
+			System.out.println("(Main) Disparando Dispatcher");
+			Dispatcher<Teste> dispatcher = Dispatcher.Invocar(new Requisicao<Teste>("chat.bootstrap.TesteController Junda", t));
+			System.out.println("(Main) Disparado Dispatcher");
+			dispatcher.pronto((data) -> {
+				System.out.println("Executado > "+data.msg);
+				try {
+					Dispatcher.Fechar();
+				} catch (Throwable e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
 			
-			try {
-				Teste t = new Teste("oi mundo");
-				Ouvinte.Invocar(new Requisicao<Teste>("chat.bootstrap.TesteController Junda", t), 
-						(data) -> System.out.println("Executado > "+data.msg), 2000).executar();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+// REQUISIÇÃO CONTINUA
+//			Teste t = new Teste("oi mundo");
+//			Ouvinte.Invocar(new Requisicao<Teste>("chat.bootstrap.TesteController Junda", t), 
+//					(data) -> System.out.println("Executado > "+data.msg));
+
 			
 		}
 	}
