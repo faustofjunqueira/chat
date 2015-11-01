@@ -19,4 +19,9 @@ public abstract class Dominio implements Serializable{
 	public final void setId(Integer id) {
 		Id = id;
 	}
+	
+	@Override
+	public String toString() {	
+		return "Id: "+getId().toString();
+	}
 }

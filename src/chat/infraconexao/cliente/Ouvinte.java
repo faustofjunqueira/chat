@@ -5,19 +5,19 @@ import java.util.function.Consumer;
 
 import chat.infra.conexao.Requisicao;
 
-public class Ouvinte<T extends Serializable> extends Dispatcher<T>{
+public class Ouvinte<I extends Serializable, O extends Serializable> extends Dispatcher<I,O>{
 	
-	private Ouvinte(Requisicao<T> _requisicao) {
+	private Ouvinte(Requisicao<I> _requisicao) {
 		super(_requisicao);
 	}
 	
-	Ouvinte(Requisicao<T> _requisicao, Consumer<T> funcaoPronto) {
+	Ouvinte(Requisicao<I> _requisicao, Consumer<O> funcaoPronto) {
 		super(_requisicao);
 		pronto(funcaoPronto);
 	}
 
-	public static <T extends Serializable> Ouvinte<T> Invocar(Requisicao<T> _requisicao, Consumer<T> funcaoPronto){
-		Ouvinte<T> ouvinte = new Ouvinte<T>(_requisicao,funcaoPronto);
+	public static <U extends Serializable, V extends Serializable> Ouvinte<U,V> Invocar(Requisicao<U> _requisicao, Consumer<V> funcaoPronto){
+		Ouvinte<U,V> ouvinte = new Ouvinte<U,V>(_requisicao,funcaoPronto);
 		ouvinte.encaminhar();
 		return ouvinte;
 	}

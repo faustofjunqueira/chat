@@ -1,11 +1,13 @@
 package chat.dominio.entidade.nucleo;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 import chat.dominio.entidade.Mensagem;
 import chat.dominio.entidade.Sala;
 import chat.dominio.entidade.Usuario;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 
 public class SalasContainer{
@@ -18,12 +20,12 @@ public class SalasContainer{
 		return container;
 	}
 	
-	private Set<SalaContexto> salasAbertas;
-	private Set<UsuarioConectado> usuariosConectados;
+	private List<SalaContexto> salasAbertas;
+	private List<UsuarioConectado> usuariosConectados;
 	
 	public SalasContainer() {
-		salasAbertas = new TreeSet<>();
-		usuariosConectados = new TreeSet<>();
+		salasAbertas = new LinkedList<>();
+		usuariosConectados = new LinkedList<>();
 	}
 	
 	public void entrarUsuario(UsuarioConectado usuario){
@@ -56,9 +58,25 @@ public class SalasContainer{
 		salaContexto.sair(usuarioConectado);
 	}
 	
+	public List<Usuario> todosUsuariosConectados() {
+		List<Usuario> resultado = new ArrayList<>();
+		for (UsuarioConectado usuarioConectado : usuariosConectados) {
+			resultado.add(usuarioConectado.getUsuario());
+		}
+		return resultado;
+	}
+	
+	public List<Sala> todasSalas() {
+		List<Sala> resultado = new ArrayList<>();
+		for (SalaContexto sala : salasAbertas) {
+			resultado.add(sala.getSala());
+		}
+		return resultado;
+	}
+	
 	public void enviarMensagem(Mensagem mensagem) {
-		// TODO: definir oq eh uma mensagem
-		// TODO: escrever o metodo
+		SalaContexto sala = encontrarSalaContexto(mensagem.getSala());
+		sala.enviarMensagem(mensagem);
 	}
 	
 	private SalaContexto encontrarSalaContexto(Sala sala){

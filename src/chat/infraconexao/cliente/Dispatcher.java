@@ -10,7 +10,7 @@ import chat.infra.conexao.Requisicao;
 import chat.infra.conexao.Resposta;
 import chat.infra.conexao.servidor.ServidorContainer;
 
-public class Dispatcher<T extends Serializable> {
+public class Dispatcher<I extends Serializable, O extends Serializable> {
 
 	public static String IP_DEFAULT = null;
 	public static short PORTA_DEFAULT = 0;
@@ -35,19 +35,19 @@ public class Dispatcher<T extends Serializable> {
 		}
 	}
 
-	private Requisicao<T> requisicao;
-	private Resposta<T> resposta;
+	private Requisicao<I> requisicao;
+	private Resposta<O> resposta;
 	private EnumEmissorStatus status;
-	private Consumer<T> funcao_pronto;
+	private Consumer<O> funcao_pronto;
 
-	Dispatcher(Requisicao<T> _requisicao) {
+	Dispatcher(Requisicao<I> _requisicao) {
 		requisicao = _requisicao;
 		resposta = null;
 		status = EnumEmissorStatus.INDEFINIDO;
 	}
 
-	public static <T extends Serializable> Dispatcher<T> Invocar(Requisicao<T> _requisicao) {
-		Dispatcher<T> dispatcher = new Dispatcher<T>(_requisicao);
+	public static <U extends Serializable, V extends Serializable> Dispatcher<U,V> Invocar(Requisicao<U> _requisicao) {
+		Dispatcher<U,V> dispatcher = new Dispatcher<U,V>(_requisicao);
 		dispatcher.encaminhar();
 		return dispatcher;
 	}
@@ -66,29 +66,29 @@ public class Dispatcher<T extends Serializable> {
 		funcao_pronto.accept(resposta.getDados());
 	}
 
-	public void pronto(Consumer<T> lambda) {
+	public void pronto(Consumer<O> lambda) {
 		funcao_pronto = lambda;
 		if (resposta != null) {
 			perfome_pronto();
 		}
 	}
 
-	synchronized void respostaObtida(Resposta<T> reposta) {
+	synchronized void respostaObtida(Resposta<O> reposta) {
 		setResposta(reposta);
 		if (funcao_pronto != null) {
 			perfome_pronto();
 		}
 	}
 
-	public Requisicao<T> getRequisicao() {
+	public Requisicao<I> getRequisicao() {
 		return requisicao;
 	}
 
-	Resposta<T> getResposta() {
+	Resposta<O> getResposta() {
 		return resposta;
 	}
 
-	void setResposta(Resposta<T> resposta) {
+	void setResposta(Resposta<O> resposta) {
 		this.resposta = resposta;
 	}
 
@@ -100,7 +100,7 @@ public class Dispatcher<T extends Serializable> {
 		return getRequisicao().getHash();
 	}
 
-	protected Consumer<T> getFuncaoPronto() {
+	protected Consumer<O> getFuncaoPronto() {
 		return funcao_pronto;
 	}
 

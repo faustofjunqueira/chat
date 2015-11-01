@@ -1,5 +1,8 @@
 package chat.servidor.servico;
 
+import java.util.List;
+
+import chat.dominio.entidade.Mensagem;
 import chat.dominio.entidade.Sala;
 import chat.dominio.entidade.Usuario;
 import chat.dominio.entidade.auxiliar.UsuarioSalaComponente;
@@ -10,6 +13,10 @@ public class SalaServico extends Servico {
 
 	public SalaServico() {
 		super();
+	}
+	
+	public List<Sala> todas(Requisicao<Sala> requisicao){
+		return SalasContainer.Instance().todasSalas();
 	}
 	
 	public boolean criarSala(Requisicao<Sala> requisicao) {

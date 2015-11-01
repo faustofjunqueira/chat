@@ -16,9 +16,9 @@ public class EmissorThread extends Thread {
   private ClienteContexto contexto = ClienteContexto.Instance();
 
   private void invocarProcessoEnviados() throws IOException, InterruptedException {
-    List<Dispatcher<?>> listaParaEnviar = contexto.getListaRequisicaoParaEnviar();
+    List<Dispatcher<?,?>> listaParaEnviar = contexto.getListaRequisicaoParaEnviar();
     List<Requisicao<?>> listaRequisicao = new ArrayList<>(listaParaEnviar.size());
-    for (Dispatcher<?> d : listaParaEnviar) {
+    for (Dispatcher<?,?> d : listaParaEnviar) {
       listaRequisicao.add(d.getRequisicao());
     }
     contexto.getCanal().enviar(listaRequisicao);

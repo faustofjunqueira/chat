@@ -1,7 +1,8 @@
 package chat.dominio.entidade.nucleo;
 
-import java.util.Set;
-import java.util.TreeSet;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import chat.dominio.entidade.Mensagem;
 import chat.dominio.entidade.Sala;
@@ -9,12 +10,12 @@ import chat.dominio.entidade.Sala;
 class SalaContexto {
 
 	private Sala sala;
-	private Set<UsuarioConectado> usuarios;
+	private List<UsuarioConectado> usuarios;
 
 	public SalaContexto(Sala sala) {
 		super();
 		this.sala = sala;
-		this.usuarios = new TreeSet<>();
+		this.usuarios = new ArrayList<>();
 	}
 
 	Sala getSala() {

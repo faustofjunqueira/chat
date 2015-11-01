@@ -17,7 +17,7 @@ class ClienteContexto {
 		return objetoSingleton;
 	}
 
-	private Map<String, Dispatcher<?>> BufferDeEnvio;
+	private Map<String, Dispatcher<?,?>> BufferDeEnvio;
 	private ClienteCanal canal;
 	private Thread EmissorThread;
 	private Thread ReceptorThread;
@@ -41,31 +41,31 @@ class ClienteContexto {
 		return canal;
 	}
 
-	void atualizaStatus(List<Dispatcher<?>> lista, EnumEmissorStatus status) {
-		for (Dispatcher<?> d : lista) {
+	void atualizaStatus(List<Dispatcher<?,?>> lista, EnumEmissorStatus status) {
+		for (Dispatcher<?,?> d : lista) {
 			d.setStatus(status);
 		}
 	}
 
-	Dispatcher<?> getDispatcherPeloHash(String hash) {
+	Dispatcher<?,?> getDispatcherPeloHash(String hash) {
 		return BufferDeEnvio.get(hash);
 	}
 
-	synchronized void adicionarDispatcher(Dispatcher<?> dispatcher) {
+	synchronized void adicionarDispatcher(Dispatcher<?,?> dispatcher) {
 		BufferDeEnvio.put(dispatcher.getHash(), dispatcher);
 		notify();
 	}
 
-	synchronized void removeDispatcher(Dispatcher<?> dispatcher) {
+	synchronized void removeDispatcher(Dispatcher<?,?> dispatcher) {
 		BufferDeEnvio.remove(dispatcher);
 	}
 
-	synchronized List<Dispatcher<?>> getListaRequisicaoParaEnviar() throws InterruptedException {
-		List<Dispatcher<?>> lista = new ArrayList<>();
+	synchronized List<Dispatcher<?,?>> getListaRequisicaoParaEnviar() throws InterruptedException {
+		List<Dispatcher<?,?>> lista = new ArrayList<>();
 		EnumEmissorStatus status = EnumEmissorStatus.ESPERANDO;
 
 		// TODO: Limitar o tamanho da lista talvez
-		for (Dispatcher<?> d : BufferDeEnvio.values()) {
+		for (Dispatcher<?,?> d : BufferDeEnvio.values()) {
 			if (d.getStatus() == status) {
 				lista.add(d);
 			}

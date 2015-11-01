@@ -52,4 +52,9 @@ public class Mensagem extends Dominio {
 		this.sala = sala;
 	}
 	
+	@Override
+	public String toString() {
+		return super.toString() + " sala: "+sala.toString()+" usuario: "+usuario.toString()+" texto: "+getTexto();
+	}
+	
 }
