@@ -1,4 +1,4 @@
-package chat.infraconexao.cliente;
+package chat.infra.conexao.cliente;
 
 import java.io.Serializable;
 import java.util.function.Consumer;

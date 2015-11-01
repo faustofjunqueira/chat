@@ -7,8 +7,8 @@ import chat.dominio.entidade.Sala;
 import chat.dominio.entidade.Usuario;
 import chat.dominio.entidade.auxiliar.UsuarioSalaComponente;
 import chat.infra.conexao.Requisicao;
-import chat.infraconexao.cliente.Dispatcher;
-import chat.infraconexao.cliente.Ouvinte;
+import chat.infra.conexao.cliente.Dispatcher;
+import chat.infra.conexao.cliente.Ouvinte;
 
 public class Cliente {
 

@@ -1,4 +1,4 @@
-package chat.infraconexao.cliente;
+package chat.infra.conexao.cliente;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package chat.infraconexao.cliente;
+package chat.infra.conexao.cliente;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
