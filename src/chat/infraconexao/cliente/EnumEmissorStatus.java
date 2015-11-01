@@ -1,4 +1,4 @@
-package chat.comum.conexao.cliente;
+package chat.infraconexao.cliente;
 
 public enum EnumEmissorStatus {
 	INDEFINIDO, ESPERANDO, ENVIADO, RECEBIDO, EXECUTADO;

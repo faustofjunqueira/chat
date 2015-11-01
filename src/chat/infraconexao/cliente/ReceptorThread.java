@@ -1,8 +1,9 @@
-package chat.comum.conexao.cliente;
+package chat.infraconexao.cliente;
 
 import java.io.IOException;
 import java.util.List;
-import chat.comum.conexao.Resposta;
+
+import chat.infra.conexao.Resposta;
 
 public class ReceptorThread extends Thread {
 

@@ -1,4 +1,4 @@
-package chat.comum.conexao.servidor;
+package chat.infra.conexao.servidor;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
-import chat.comum.conexao.GeradorSerial;
+import chat.util.GeradorSerial;
 
 public class ServidorContainer implements Runnable{
 

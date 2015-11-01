@@ -1,10 +1,10 @@
-package chat.comum.conexao.servidor;
+package chat.infra.conexao.servidor;
 
 import java.io.IOException;
 import java.util.List;
 
-import chat.comum.conexao.ProdutoConsumidor;
-import chat.comum.conexao.Resposta;
+import chat.infra.conexao.Resposta;
+import chat.util.ProdutoConsumidor;
 
 public class ServidorEmissor extends ProdutoConsumidor<Resposta<?>> {
 

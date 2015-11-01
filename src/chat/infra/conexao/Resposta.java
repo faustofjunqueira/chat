@@ -1,4 +1,4 @@
-package chat.comum.conexao;
+package chat.infra.conexao;
 
 import java.io.Serializable;
 

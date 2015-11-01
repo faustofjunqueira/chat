@@ -1,4 +1,4 @@
-package chat.comum.conexao.cliente;
+package chat.infraconexao.cliente;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -8,8 +8,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import chat.comum.conexao.Requisicao;
-import chat.comum.conexao.Resposta;
+import chat.infra.conexao.Requisicao;
+import chat.infra.conexao.Resposta;
 
 public class ClienteCanal {
 	private Socket socket;

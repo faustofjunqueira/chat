@@ -1,9 +1,9 @@
-package chat.comum.conexao.servidor;
+package chat.infra.conexao.servidor;
 
 import java.io.IOException;
 import java.io.Serializable;
 
-import chat.comum.conexao.Resposta;
+import chat.infra.conexao.Resposta;
 
 public class ServidorContexto {
 

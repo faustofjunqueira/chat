@@ -1,4 +1,4 @@
-package chat.comum.conexao.servidor;
+package chat.infra.conexao.servidor;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -6,8 +6,10 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import chat.comum.conexao.Requisicao;
-import chat.comum.conexao.Resposta;
+
+import chat.infra.conexao.Requisicao;
+import chat.infra.conexao.Resposta;
+import chat.servidor.servico.Servico;
 
 public class ServidorManipuladorRequisicao extends Thread {
 
@@ -25,9 +27,13 @@ public class ServidorManipuladorRequisicao extends Thread {
 	private Resposta resolveRequisicao(Requisicao<?> req) {
 		Resposta res = null;
 		try {
-			Class<?> classe = Class.forName(req.getClasse());
+			Class<?> classe = Class.forName(req.getPacote() + "." + req.getClasse());
 			Method metodo = classe.getDeclaredMethod(req.getAcao(), Requisicao.class);
-			res = MontaResposta((Serializable) metodo.invoke(classe.newInstance(), req));
+			
+			Servico servico = (Servico) classe.newInstance();
+			servico.setContexto(contexto);
+			
+			res = MontaResposta((Serializable) metodo.invoke(servico, req));
 			res.setErro(false);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -62,7 +68,7 @@ public class ServidorManipuladorRequisicao extends Thread {
 		try {
 			contexto.fechar();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch blocks
 			e.printStackTrace();
 		}
 	}

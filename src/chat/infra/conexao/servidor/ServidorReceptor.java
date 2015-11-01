@@ -1,8 +1,9 @@
-package chat.comum.conexao.servidor;
+package chat.infra.conexao.servidor;
 
 import java.io.IOException;
-import chat.comum.conexao.ProdutoConsumidor;
-import chat.comum.conexao.Requisicao;
+
+import chat.infra.conexao.Requisicao;
+import chat.util.ProdutoConsumidor;
 
 class ServidorReceptor extends ProdutoConsumidor<Requisicao<?>> {
 

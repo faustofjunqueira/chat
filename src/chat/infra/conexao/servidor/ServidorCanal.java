@@ -1,4 +1,4 @@
-package chat.comum.conexao.servidor;
+package chat.infra.conexao.servidor;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -6,8 +6,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
 
-import chat.comum.conexao.Requisicao;
-import chat.comum.conexao.Resposta;
+import chat.infra.conexao.Requisicao;
+import chat.infra.conexao.Resposta;
 
 public class ServidorCanal {
 

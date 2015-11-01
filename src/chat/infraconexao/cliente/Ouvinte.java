@@ -1,9 +1,9 @@
-package chat.comum.conexao.cliente;
+package chat.infraconexao.cliente;
 
 import java.io.Serializable;
 import java.util.function.Consumer;
 
-import chat.comum.conexao.Requisicao;
+import chat.infra.conexao.Requisicao;
 
 public class Ouvinte<T extends Serializable> extends Dispatcher<T>{
 	

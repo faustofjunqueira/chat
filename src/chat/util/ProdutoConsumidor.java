@@ -1,4 +1,4 @@
-package chat.comum.conexao;
+package chat.util;
 
 import java.util.ArrayList;
 import java.util.List;

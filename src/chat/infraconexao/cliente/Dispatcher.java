@@ -1,4 +1,4 @@
-package chat.comum.conexao.cliente;
+package chat.infraconexao.cliente;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -6,9 +6,9 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.function.Consumer;
 
-import chat.comum.conexao.Requisicao;
-import chat.comum.conexao.Resposta;
-import chat.comum.conexao.servidor.ServidorContainer;
+import chat.infra.conexao.Requisicao;
+import chat.infra.conexao.Resposta;
+import chat.infra.conexao.servidor.ServidorContainer;
 
 public class Dispatcher<T extends Serializable> {
 

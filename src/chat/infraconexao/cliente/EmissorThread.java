@@ -1,9 +1,10 @@
-package chat.comum.conexao.cliente;
+package chat.infraconexao.cliente;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import chat.comum.conexao.Requisicao;
+
+import chat.infra.conexao.Requisicao;
 
 
 public class EmissorThread extends Thread {

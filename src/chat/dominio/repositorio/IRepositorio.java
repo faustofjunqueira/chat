@@ -1,0 +1,20 @@
+package chat.dominio.repositorio;
+
+import java.util.List;
+
+import chat.dominio.entidade.Dominio;
+import chat.dominio.filtro.Filtro;
+
+public interface IRepositorio<D extends Dominio, F extends Filtro> {
+	/**
+	 * adicionar
+	 * remover
+	 * buscar(filtro)
+	 * listar
+	 */
+	
+	void adicionar(D elemento);
+	List<D>  buscar(F filtro);
+	void remover(Integer id);
+	D getPeloId(Integer id);
+}

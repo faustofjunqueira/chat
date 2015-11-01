@@ -1,8 +1,10 @@
-package chat.comum.conexao;
+package chat.infra.conexao;
 
 import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.Set;
+
+import chat.util.GeradorSerial;
 
 public class Requisicao<T extends Serializable> implements Serializable {
 
@@ -38,8 +40,10 @@ public class Requisicao<T extends Serializable> implements Serializable {
 	}
 
 	public static Hashtable<String, String> Cabecalho = new Hashtable<String, String>();
-
+	public static String PackagePadrao = "chat.servidor.servico";
+	
 	private String hash;
+	private String pacote;
 	private String classe;
 	private String acao;
 	T dados;
@@ -49,18 +53,20 @@ public class Requisicao<T extends Serializable> implements Serializable {
 		this.classe = classe;
 		this.acao = acao;
 		this.dados = dados;
+		this.pacote = PackagePadrao;
 		this.hash = GeradorSerial.Criar();
 		cabecalho = new Cabecalho(Cabecalho);
 	}
 
 	public Requisicao(String rota, T dados) {
 		if (rota != null) {
-			String splitado[] = rota.split(" ");
+			String splitado[] = rota.split("\\.");
 			this.classe = splitado[0];
 			this.acao = splitado[1];
 		}
 		this.dados = dados;
 		this.hash = GeradorSerial.Criar();
+		this.pacote = PackagePadrao;
 		cabecalho = new Cabecalho(Cabecalho);
 	}
 
@@ -83,6 +89,14 @@ public class Requisicao<T extends Serializable> implements Serializable {
 
 	public Cabecalho getCabecalho() {
 		return cabecalho;
+	}
+
+	public final String getPacote() {
+		return pacote;
+	}
+
+	public final void setPacote(String pacote) {
+		this.pacote = pacote;
 	}
 
 	public String getHash() {

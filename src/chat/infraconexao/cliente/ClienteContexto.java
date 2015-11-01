@@ -1,4 +1,4 @@
-package chat.comum.conexao.cliente;
+package chat.infraconexao.cliente;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,7 +48,6 @@ class ClienteContexto {
 	}
 
 	Dispatcher<?> getDispatcherPeloHash(String hash) {
-		System.out.println("GetDispatcherHash: buffer size: "+BufferDeEnvio.size());
 		return BufferDeEnvio.get(hash);
 	}
 
