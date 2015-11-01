@@ -9,6 +9,7 @@ import chat.util.GeradorSerial;
 public class Requisicao<T extends Serializable> implements Serializable {
 
 	public class Cabecalho implements Serializable {
+		
 		private Hashtable<String, String> cabecalho;
 
 		public Cabecalho(Hashtable<String, String> cabecalho) {
@@ -68,11 +69,6 @@ public class Requisicao<T extends Serializable> implements Serializable {
 		this.hash = GeradorSerial.Criar();
 		this.pacote = PackagePadrao;
 		cabecalho = new Cabecalho(Cabecalho);
-	}
-
-	@Override
-	public String toString() {
-		return "classe: " + classe + " acao: " + acao + " dados: " + (String) dados;
 	}
 
 	public String getClasse() {
