@@ -3,8 +3,9 @@ package chat.view;
 import javax.swing.*;
 import java.util.*;
 import java.util.List;
-
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ClienteViewer{
 
@@ -21,6 +22,7 @@ public class ClienteViewer{
 	 * 
 	 *  #anotaenaoesquece #biacriativa
 	 */
+
 
 	// janela ok, feliz tbm.
 	private static void salaChat() {
@@ -55,6 +57,7 @@ public class ClienteViewer{
 		JPanel botao = new JPanel();
 
 		botao.add(botao1);
+		botao1.addActionListener(enviar);
 
 
 		// painel final
@@ -103,6 +106,7 @@ public class ClienteViewer{
 		JPanel botao = new JPanel();
 
 		botao.add(botao1);
+		botao1.addActionListener(entrarChat);
 
 		// painel final
 
@@ -125,24 +129,147 @@ public class ClienteViewer{
 		frame.setVisible(true);
 	}
 
-	private static void contatos(List<String> lista)
+	private static JPanel geraLista()
 	{
+		// lista e suas coisas
+		List<String> lista = new ArrayList<String>();
+
+		lista.add("Maria do ceu");
+		lista.add("Joao bobo");
+		lista.add("Juracema s2 Paulinho");
+		lista.add("Bia");
+		lista.add("Fausto");
+		lista.add("Mainha");
+		lista.add("Mário");
+		lista.add("Zezim");
+
+		// check boxes:
+		List<JCheckBox> caixas = new ArrayList<JCheckBox>();
+
+		// layout
+		GridLayout layout = new GridLayout(lista.size(),2);
+		layout.setHgap(5);
+		layout.setVgap(5);
+
+		// painel
+		JPanel painel = new JPanel();
+		painel.setLayout(layout);
+
+		// situacao do for
+		int a = lista.size();
+		for(int i = 0; i<a; i++)
+		{
+
+			// fiz a checkbox e associei ela ao nome do calango.
+			caixas.add(new JCheckBox());
+
+			// add os calangos ao painel
+			painel.add(caixas.get(i));
+			painel.add(new JLabel(lista.get(i)));
+
+		}
+
+
+		return painel;
+	}
+
+	private static void contatos()
+	{
+		// Layout da Pagina principal:
+		//		BoxLayout layout = new BoxLayout(BoxLayout.Y_AXIS);
+
+
+
+
+
+
+		// painel da lista de contatos
+		// Botao de entrar:
+		JButton botao1 = new JButton("Entrar em Contato");
+		botao1.addActionListener(entrarConversa);
+
+		JPanel listas = new JPanel();
+		listas.setLayout(new BoxLayout(listas, BoxLayout.PAGE_AXIS));
+
+		JPanel painelLista = geraLista();
+
+		listas.add(new JLabel("Lista de Contatos OnLine"));
+		listas.add(painelLista);
+		listas.add(botao1);
+
+		// painel de conversas
+		// botao de continuar a conversa
+		JButton botao2 = new JButton("Voltar a Conversa");
+		botao2.addActionListener(continuarConversa);
+		JPanel painelConversas = geraLista();
+
+
+
+		// painel final
+		JPanel painelF = new JPanel();
+		painelF.setLayout(new BoxLayout(painelF, BoxLayout.X_AXIS));
+		painelF.setSize(400, 350);
+
+		//		painelF.add(new JLabel("Lista de Contatos OnLine"));
+		painelF.add(listas);
+		//		painelF.add(botao1);
+		//		painelF.add(new JLabel("Conversas Ativas:"));
+		//		painelF.add(painelConversas);
+		//		painelF.add(botao2);
+
+		JScrollPane scroll2 = new JScrollPane(painelF, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scroll2.setPreferredSize(new Dimension(400, 350));
+
 
 		// coisas da janela
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		JFrame frame = new JFrame("Trabalho Chat");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-//		frame.add(painelF);
+		frame.add(scroll2);
 		frame.pack();
-		frame.setSize(400,150);
+		frame.setSize(400,700);
 		frame.setVisible(true);
 	}
-	
+
+	// ################################################ listeners dos botoes!
+
+	// listener para entrar no chat
+	private static ActionListener entrarChat = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("OK");
+		}
+
+	};
+
+	// listener para criar conversa
+	private static	ActionListener entrarConversa = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("OK");
+		}
+	};
+
+	// listener para entrar numa conversa existente
+	private static ActionListener continuarConversa = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("OK");
+		}
+
+	};
+
+	// listener para enviar mensagem
+	private static ActionListener enviar = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("OK");
+		}
+
+	};
+
+
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				salaChat();
+				contatos();
 			}
 		});
 	}
