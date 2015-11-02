@@ -23,7 +23,7 @@ public class UsuarioConectado {
 		resposta.setHash(HashRequisicao);
 		contexto.enviarRespostaCliente(resposta);
 	}
-
+	
 	Usuario getUsuario() {
 		return usuario;
 	}

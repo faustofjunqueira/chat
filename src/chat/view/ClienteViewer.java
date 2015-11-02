@@ -201,6 +201,7 @@ public class ClienteViewer{
 		// botao de continuar a conversa
 		JButton botao2 = new JButton("Voltar a Conversa");
 		botao2.addActionListener(continuarConversa);
+		
 		JPanel painelConversas = geraLista();
 
 
