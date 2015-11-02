@@ -4,9 +4,10 @@ import java.util.List;
 
 import chat.dominio.entidade.Mensagem;
 import chat.dominio.entidade.Usuario;
-import chat.dominio.entidade.nucleo.SalasContainer;
-import chat.dominio.entidade.nucleo.UsuarioConectado;
 import chat.infra.conexao.Requisicao;
+import chat.servidor.SalasContainer;
+import chat.servidor.UsuarioConectado;
+import chat.util.GeradorSerial;
 
 public class UsuarioServico extends Servico{
 
@@ -14,6 +15,12 @@ public class UsuarioServico extends Servico{
 		super();
 	}
 
+	public int criarUsuario(Requisicao<Usuario> requisicao) {
+		Usuario usuario = requisicao.getDados();
+		usuario.setId(GeradorSerial.AutoIncremento());
+		return usuario.getId();
+	}
+	
 	public Mensagem entrar(Requisicao<Usuario> requisicao) {
 		UsuarioConectado usuarioConectado = new UsuarioConectado(requisicao.getDados(), getContexto(), requisicao.getHash());
 		SalasContainer.Instance().entrarUsuario(usuarioConectado);

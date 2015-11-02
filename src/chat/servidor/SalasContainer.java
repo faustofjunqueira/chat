@@ -1,4 +1,4 @@
-package chat.dominio.entidade.nucleo;
+package chat.servidor;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import chat.dominio.entidade.Mensagem;
 import chat.dominio.entidade.Sala;
 import chat.dominio.entidade.Usuario;
+import chat.util.GeradorSerial;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 
@@ -37,8 +38,10 @@ public class SalasContainer{
 		usuariosConectados.remove(usuarioConectado);
 	}
 	
-	public void criarSala(Sala sala) {
+	public int criarSala(Sala sala) {
+		sala.setId(GeradorSerial.AutoIncremento());
 		salasAbertas.add(new SalaContexto(sala));
+		return sala.getId();
 	}
 	
 	public void removerSala(Sala sala) {

@@ -1,10 +1,13 @@
 package chat.dominio.entidade;
 
+import java.util.Calendar;
+
 public class Mensagem extends Dominio {
 
 	private String texto;
 	private Usuario usuario;
 	private Sala sala;
+	private Calendar hora;
 	
 	public Mensagem() {
 		super();
@@ -15,17 +18,20 @@ public class Mensagem extends Dominio {
 		this.texto = texto;
 		this.usuario = usuario;
 		this.sala = sala;
+		this.hora = Calendar.getInstance();
 	}
 	
 	public Mensagem(Usuario usuario, Sala sala) {
 		super();
 		this.usuario = usuario;
 		this.sala = sala;
+		this.hora = Calendar.getInstance();
 	}
 	
 	public Mensagem(String texto) {
 		super();
 		this.texto = texto;
+		this.hora = Calendar.getInstance();
 	}
 
 	public String getTexto() {

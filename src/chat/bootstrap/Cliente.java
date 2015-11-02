@@ -1,12 +1,13 @@
 package chat.bootstrap;
 
 import java.io.IOException;
+import java.util.Calendar;
 
+import chat.cliente.AtualizaChat;
 import chat.dominio.entidade.Mensagem;
 import chat.dominio.entidade.Sala;
 import chat.dominio.entidade.Usuario;
 import chat.dominio.entidade.auxiliar.UsuarioSalaComponente;
-import chat.dominio.repositorio.PopulaRepositorio;
 import chat.dominio.repositorio.RepositorioContainer;
 import chat.infra.conexao.Requisicao;
 import chat.infra.conexao.cliente.Dispatcher;
@@ -29,7 +30,7 @@ public class Cliente {
 
 	private void iniciaPopuladorDoRepositorio(){
 		try{
-			popRepositorioThread = new Thread(new PopulaRepositorio(tempoDeAtrasoEmMilisegundos));
+			popRepositorioThread = new Thread(new AtualizaChat(tempoDeAtrasoEmMilisegundos));
 			popRepositorioThread.start();
 		}catch(Exception e){
 			System.err.println("Erro ao iniciar Dispatcher");
@@ -161,6 +162,7 @@ public class Cliente {
 		cliente.iniciaDispatcher();
 		cliente.iniciaPopuladorDoRepositorio();
 		
+		
 		if (args[0].equals("1")) {
 			cliente.Usuario1();
 		}else if (args[0].equals("2")) {
@@ -172,6 +174,7 @@ public class Cliente {
 		} else {
 			cliente.Usuario5();
 		}
+		
 	}
 
 }

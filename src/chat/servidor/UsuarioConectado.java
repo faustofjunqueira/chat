@@ -1,4 +1,4 @@
-package chat.dominio.entidade.nucleo;
+package chat.servidor;
 
 import chat.dominio.entidade.Mensagem;
 import chat.dominio.entidade.Usuario;
