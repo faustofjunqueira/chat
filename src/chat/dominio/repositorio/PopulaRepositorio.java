@@ -17,9 +17,9 @@ public class PopulaRepositorio implements Runnable{
 	private void buscaSalas(){
 		Dispatcher.Invocar(new Requisicao<Sala>("SalaServico.todas", null))
 		.pronto((salas) -> RepositorioContainer.Instance().Sala().limpar().adicionarTodos((List<Sala>) salas));
-
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void buscaUsuariosLogados(){
 		Dispatcher.Invocar(new Requisicao<Sala>("UsuarioServico.todos", null))
 		.pronto((usuarios) -> RepositorioContainer.Instance().Usuario().limpar().adicionarTodos((List<Usuario>) usuarios));
