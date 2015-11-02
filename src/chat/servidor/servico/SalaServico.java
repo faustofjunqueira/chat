@@ -3,6 +3,7 @@ package chat.servidor.servico;
 import java.util.List;
 
 import chat.dominio.entidade.Sala;
+import chat.dominio.entidade.Usuario;
 import chat.dominio.entidade.auxiliar.UsuarioSalaComponente;
 import chat.infra.conexao.Requisicao;
 import chat.servidor.SalasContainer;
@@ -17,8 +18,15 @@ public class SalaServico extends Servico {
 		return SalasContainer.Instance().todasSalas();
 	}
 	
-	public int criarSala(Requisicao<Sala> requisicao) {	
-		return SalasContainer.Instance().criarSala(requisicao.getDados());
+	public int criarSala(Requisicao<Sala> requisicao) {
+		Sala sala = requisicao.getDados();
+		int idSalaCriada = SalasContainer.Instance().criarSala(sala);
+		if(sala.getUsuarios() != null){
+			for (Usuario u: sala.getUsuarios()) {
+				SalasContainer.Instance().entrarNaSala(u, sala);
+			}
+		}
+		return idSalaCriada;
 	}
 	
 	public boolean excluirSala(Requisicao<Sala> requisicao){

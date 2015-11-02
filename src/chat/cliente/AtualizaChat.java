@@ -19,7 +19,7 @@ public class AtualizaChat implements Runnable{
 		Dispatcher.Invocar(new Requisicao<Sala>("SalaServico.todas", null))
 		.pronto((salas) -> RepositorioContainer.Instance().Sala().limpar().adicionarTodos((List<Sala>) salas));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private void buscaUsuariosLogados(){
 		Dispatcher.Invocar(new Requisicao<Sala>("UsuarioServico.todos", null))
