@@ -23,21 +23,21 @@ public class RepositorioContainer {
 	}
 
 	public final Repositorio<Mensagem, ?> Messagem() {
-		if (mensagemRepositorio != null) {
+		if (mensagemRepositorio == null) {
 			mensagemRepositorio = new Repositorio<>();
 		}
 		return mensagemRepositorio;
 	}
 
 	public final Repositorio<Sala, ?> Sala() {
-		if (salaRepositorio != null) {
+		if (salaRepositorio == null) {
 			salaRepositorio = new Repositorio<>();
 		}
 		return salaRepositorio;
 	}
 
 	public final Repositorio<Usuario, ?> Usuario() {
-		if (usuarioRepositorio != null) {
+		if (usuarioRepositorio == null) {
 			usuarioRepositorio = new Repositorio<>();
 		}
 		return usuarioRepositorio;

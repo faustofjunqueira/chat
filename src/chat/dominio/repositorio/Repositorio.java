@@ -28,7 +28,7 @@ public class Repositorio<D extends Dominio, F extends Filtro<D>> implements IRep
 	public List<D> buscar(F filtro) {
 		List<D> resultado = new LinkedList<>();
 		for (D d : buffer) {
-			if (filtro.filtrar(d)) {
+			if (filtro == null || filtro.filtrar(d)) {
 				resultado.add(d);
 			}
 		}
