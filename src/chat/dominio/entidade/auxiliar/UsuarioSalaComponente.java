@@ -1,29 +1,30 @@
 package chat.dominio.entidade.auxiliar;
 
 import java.io.Serializable;
+import java.util.List;
 
 import chat.dominio.entidade.Sala;
 import chat.dominio.entidade.Usuario;
 
 public class UsuarioSalaComponente implements Serializable{
 
-	private Usuario usuario;
+	private List<Usuario> usuarios;
 	private Sala sala;
 	
 	public UsuarioSalaComponente() {}
 
-	public UsuarioSalaComponente(Usuario usuario, Sala sala) {
+	public UsuarioSalaComponente(List<Usuario> usuarios, Sala sala) {
 		super();
-		this.usuario = usuario;
+		this.usuarios = usuarios;
 		this.sala = sala;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public List<Usuario> getUsuario() {
+		return usuarios;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setUsuario(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 	public Sala getSala() {

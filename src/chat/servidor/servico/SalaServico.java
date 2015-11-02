@@ -35,12 +35,22 @@ public class SalaServico extends Servico {
 	}
 	
 	public boolean entraNaSala(Requisicao<UsuarioSalaComponente> requisicao) {
-		SalasContainer.Instance().entrarNaSala(requisicao.getDados().getUsuario(), requisicao.getDados().getSala());
+		UsuarioSalaComponente componente = requisicao.getDados();
+		if(componente.getUsuario() != null){
+			for(Usuario u : componente.getUsuario()) {
+				SalasContainer.Instance().entrarNaSala(u,componente.getSala());
+			}
+		}
 		return true;
 	}
 	
 	public boolean sairDaSala(Requisicao<UsuarioSalaComponente> requisicao) {
-		SalasContainer.Instance().sairDaSala(requisicao.getDados().getUsuario(), requisicao.getDados().getSala());
+		UsuarioSalaComponente componente = requisicao.getDados();
+		if(componente.getUsuario() != null){
+			for(Usuario u : componente.getUsuario()) {
+				SalasContainer.Instance().sairDaSala(u, componente.getSala());
+			}
+		}
 		return true;
 	}
 }
