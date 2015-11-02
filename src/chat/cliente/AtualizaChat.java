@@ -1,17 +1,18 @@
-package chat.dominio.repositorio;
+package chat.cliente;
 
 import java.util.List;
 
 import chat.dominio.entidade.Sala;
 import chat.dominio.entidade.Usuario;
+import chat.dominio.repositorio.RepositorioContainer;
 import chat.infra.conexao.Requisicao;
 import chat.infra.conexao.cliente.Dispatcher;
 
-public class PopulaRepositorio implements Runnable{
+public class AtualizaChat implements Runnable{
 
 	private long tempoDeAtraso;
 	
-	public PopulaRepositorio(long tempoDeAtrasoEmMilisegundos) {}
+	public AtualizaChat(long tempoDeAtrasoEmMilisegundos) {}
 
 	@SuppressWarnings("unchecked")
 	private void buscaSalas(){

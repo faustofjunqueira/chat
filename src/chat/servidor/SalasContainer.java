@@ -1,4 +1,4 @@
-package chat.dominio.entidade.nucleo;
+package chat.servidor;
 
 import java.util.List;
 import java.util.ArrayList;

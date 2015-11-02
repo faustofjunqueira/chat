@@ -4,9 +4,9 @@ import java.util.List;
 
 import chat.dominio.entidade.Mensagem;
 import chat.dominio.entidade.Usuario;
-import chat.dominio.entidade.nucleo.SalasContainer;
-import chat.dominio.entidade.nucleo.UsuarioConectado;
 import chat.infra.conexao.Requisicao;
+import chat.servidor.SalasContainer;
+import chat.servidor.UsuarioConectado;
 import chat.util.GeradorSerial;
 
 public class UsuarioServico extends Servico{

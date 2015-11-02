@@ -4,8 +4,8 @@ import java.util.List;
 
 import chat.dominio.entidade.Sala;
 import chat.dominio.entidade.auxiliar.UsuarioSalaComponente;
-import chat.dominio.entidade.nucleo.SalasContainer;
 import chat.infra.conexao.Requisicao;
+import chat.servidor.SalasContainer;
 
 public class SalaServico extends Servico {
 
