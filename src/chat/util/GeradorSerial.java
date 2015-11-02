@@ -37,6 +37,7 @@ public class GeradorSerial {
 	}
 	
 	private static Integer incremental = 0;
+	
 	public static Integer AutoIncremento(){
 		return ++incremental;
 	}
