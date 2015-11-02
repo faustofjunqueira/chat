@@ -175,20 +175,13 @@ public class ClienteViewer{
 
 	private static void contatos()
 	{
-		// Layout da Pagina principal:
-		//		BoxLayout layout = new BoxLayout(BoxLayout.Y_AXIS);
-
-
-
-
-
-
 		// painel da lista de contatos
 		// Botao de entrar:
 		JButton botao1 = new JButton("Entrar em Contato");
 		botao1.addActionListener(entrarConversa);
 
 		JPanel listas = new JPanel();
+		listas.setPreferredSize(new Dimension(400, 500));
 		listas.setLayout(new BoxLayout(listas, BoxLayout.PAGE_AXIS));
 
 		JPanel painelLista = geraLista();
@@ -202,17 +195,25 @@ public class ClienteViewer{
 		JButton botao2 = new JButton("Voltar a Conversa");
 		botao2.addActionListener(continuarConversa);
 		
+		JPanel listas2 = new JPanel();
+		listas2.setLayout(new BoxLayout(listas2, BoxLayout.PAGE_AXIS));
+		listas2.setPreferredSize(new Dimension(400, 500));
+		
 		JPanel painelConversas = geraLista();
 
+		listas2.add(new JLabel("Lista de Conversas"));
+		listas2.add(painelConversas);
+		listas2.add(botao2);
 
 
 		// painel final
 		JPanel painelF = new JPanel();
 		painelF.setLayout(new BoxLayout(painelF, BoxLayout.X_AXIS));
-		painelF.setSize(400, 350);
+//		painelF.setSize(400, 350);
 
 		//		painelF.add(new JLabel("Lista de Contatos OnLine"));
 		painelF.add(listas);
+		painelF.add(listas2);
 		//		painelF.add(botao1);
 		//		painelF.add(new JLabel("Conversas Ativas:"));
 		//		painelF.add(painelConversas);
@@ -229,7 +230,7 @@ public class ClienteViewer{
 		frame.setResizable(false);
 		frame.add(scroll2);
 		frame.pack();
-		frame.setSize(400,700);
+		frame.setSize(800,500);
 		frame.setVisible(true);
 	}
 
