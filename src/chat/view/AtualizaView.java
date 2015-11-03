@@ -19,10 +19,13 @@ public class AtualizaView implements Runnable {
 	@Override
 	public void run() {
 		while (true) {
-			Filtro<Sala> filtroSala = new Filtro<Sala>( (sala) -> sala.usuarioEstaNaSala(controller.getUsuario()));
-			controller.atualizaContatosESalas(RepositorioContainer.Instance().Usuario().buscar(null), 
-					RepositorioContainer.Instance().Sala().buscar(filtroSala) );
-						
+			if(controller.getUsuario() != null) {
+				Filtro<Usuario> filtroUsuario = new Filtro<Usuario>( (usuario) -> !usuario.getId().equals(controller.getUsuario().getId()) );
+				Filtro<Sala> filtroSala = new Filtro<Sala>( (sala) -> sala.usuarioEstaNaSala(controller.getUsuario()));
+				
+				controller.atualizaContatosESalas(RepositorioContainer.Instance().Usuario().buscar(filtroUsuario), 
+						RepositorioContainer.Instance().Sala().buscar(filtroSala) );			
+			}
 			try {
 				Thread.sleep(atrasoEmMiliSegundos);
 			} catch (InterruptedException e) {

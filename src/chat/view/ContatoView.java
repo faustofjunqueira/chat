@@ -25,6 +25,7 @@ public class ContatoView {
 	}
 
 	public void renderizarSalas(List<Sala> listaDeSala){
+		painelConversas.setVisible(false);
 		painelConversas.removeAll();
 		
 		// check boxes:
@@ -49,11 +50,12 @@ public class ContatoView {
 			painelConversas.add(caixas.get(i));
 			painelConversas.add(new JLabel(listaDeSala.get(i).getNome()));
 		}
+		painelConversas.setVisible(true);
 	}
 	
 	public void renderizarContatos(List<Usuario> listaDeUsuario){
+		painelLista.setVisible(false);
 		painelLista.removeAll();
-		
 		// check boxes:
 		List<JCheckBox> caixas = new ArrayList<JCheckBox>();
 
@@ -72,11 +74,11 @@ public class ContatoView {
 		{
 			// fiz a checkbox e associei ela ao nome do calango.
 			caixas.add(new JCheckBox());
-
 			// add os calangos ao painel
 			painelLista.add(caixas.get(i));
 			painelLista.add(new JLabel(listaDeUsuario.get(i).getNome()));
 		}
+		painelLista.setVisible(true);
 	}
 
 	public void render()
