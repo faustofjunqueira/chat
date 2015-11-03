@@ -75,11 +75,12 @@ public class ChatView {
 
 		conteudo.add(scroll2);
 
-		// botao
+		// botao de sair
+		JButton botao2 = new JButton("Sair da Conversa");
+		
+		// botao de enviar
 		JButton botao1 = new JButton("Enviar");
-		JPanel botao = new JPanel();
-
-		botao.add(botao1);
+		
 		botao1.addActionListener((e) -> {
 			String texto = areaTexto.getText();
 			if (texto.length() > 0) {
@@ -88,6 +89,10 @@ public class ChatView {
 			}
 		});
 
+		JPanel botao = new JPanel();
+		botao.add(botao1);
+		botao.add(botao2);
+		
 		// painel final
 		JPanel painelF = new JPanel();
 
