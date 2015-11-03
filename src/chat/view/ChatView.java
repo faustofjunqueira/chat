@@ -3,6 +3,7 @@ package chat.view;
 import java.awt.Dimension;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -68,7 +69,8 @@ public class ChatView {
 		
 		// coisas da area de exibicao da conversa
 		JPanel conversa = new JPanel();
-
+		conversa.setLayout(new BoxLayout(listPane, BoxLayout.Y_AXIS));
+		
 		areaConversa.setEditable(false);
 		areaConversa.setLineWrap(true);
 
