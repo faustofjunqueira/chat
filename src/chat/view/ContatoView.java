@@ -2,10 +2,13 @@ package chat.view;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
+
+import com.sun.glass.events.WindowEvent;
 
 import chat.dominio.entidade.Sala;
 import chat.dominio.entidade.Usuario;
@@ -18,7 +21,7 @@ public class ContatoView {
 	private JPanel painelConversas;
 	private ClienteController controller;
 	private List<JUsuarioCheckbox> checkboxUsuarios;
-	
+
 	public ContatoView(String nome, ClienteController controller) {
 		this.controller = controller;
 		frame = new JFrame(nome);
@@ -29,7 +32,7 @@ public class ContatoView {
 	public void renderizarSalas(List<Sala> listaDeSala){
 		painelConversas.setVisible(false);
 		painelConversas.removeAll();
-		
+
 		// check boxes:
 		//List<JCheckBox> caixas = new ArrayList<JCheckBox>();
 		List<JSalaButton> salasButton = new ArrayList<>();
@@ -51,11 +54,11 @@ public class ContatoView {
 		}
 		painelConversas.setVisible(true);
 	}
-	
+
 	public void setTituloPeloUsuario() {
 		frame.setTitle(frame.getTitle() + " - " + controller.getUsuario().getNome());
 	}
-	
+
 	public void renderizarContatos(List<Usuario> listaDeUsuario){
 		painelLista.setVisible(false);
 		painelLista.removeAll();
@@ -113,11 +116,11 @@ public class ContatoView {
 			//TODO: fazer
 			throw new NotImplementedException();
 		});
-		
+
 		JPanel listas2 = new JPanel();
 		listas2.setLayout(new BoxLayout(listas2, BoxLayout.PAGE_AXIS));
 		listas2.setPreferredSize(new Dimension(400, 500));
-		
+
 		//JPanel painelConversas = geraLista();
 
 		listas2.add(new JLabel("Lista de Conversas"));
@@ -137,12 +140,21 @@ public class ContatoView {
 
 		// coisas da janela
 		JFrame.setDefaultLookAndFeelDecorated(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.addWindowListener(wl);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setResizable(false);
 		frame.add(scroll2);
 		frame.pack();
 		frame.setSize(800,500);
 		frame.setVisible(true);
 	}
-	
+
+	// listener da janela para fechar bacana!
+	WindowAdapter wl = new WindowAdapter()
+	{
+		public void windowClosing(WindowEvent e) { 
+			// aqui vc cria as condicoes do bichinho ao sair
+		}  
+	};
+
 }
