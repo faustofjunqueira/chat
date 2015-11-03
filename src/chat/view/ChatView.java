@@ -12,6 +12,7 @@ import javax.swing.JTextArea;
 
 import chat.dominio.entidade.Mensagem;
 import chat.dominio.entidade.Sala;
+import chat.dominio.entidade.Usuario;
 
 public class ChatView {
 
@@ -47,8 +48,24 @@ public class ChatView {
 		return sala;
 	}
 
+	private String listaUsuarios()
+	{
+		String str = null;
+		
+		for(int i=0; i<=getSala().getUsuarios().size(); i++)
+		{
+			Usuario u = getSala().getUsuarios().get(i);
+			str = str + u.getNome();
+		}
+		
+		return str;
+	}
 	public void render(List<Mensagem> listaMensagens) {
 
+		// coisas da area de exibicao dos participantes da conversa
+		String usuarios = listaUsuarios();
+		JLabel listaUsuarios = new JLabel(usuarios);		
+		
 		// coisas da area de exibicao da conversa
 		JPanel conversa = new JPanel();
 
@@ -59,6 +76,7 @@ public class ChatView {
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scroll.setPreferredSize(new Dimension(680, 430));
 
+		conversa.add(listaUsuarios);
 		conversa.add(scroll);
 
 		// coisas da digitacao do conteudo
