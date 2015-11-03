@@ -35,16 +35,17 @@ public class ContatoView {
 		List<JSalaButton> salasButton = new ArrayList<>();
 
 		// layout
-		GridLayout layout = new GridLayout(listaDeSala.size(),2);
-		layout.setHgap(5);
-		layout.setVgap(5);
+		//GridLayout layout = new GridLayout(listaDeSala.size(),2);
+		//layout.setHgap(5);
+		//layout.setVgap(5);
 
 		// painel
-		painelConversas.setLayout(layout);
+		//painelConversas.setLayout(layout);
 
 		// situacao do for
 		for(Sala s: listaDeSala){
 			JSalaButton salabtn = new JSalaButton(s,controller);
+			salabtn.setSize(new Dimension(80, 20));
 			salasButton.add(salabtn);
 			painelConversas.add(salabtn);
 		}
