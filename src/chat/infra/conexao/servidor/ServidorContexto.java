@@ -68,4 +68,10 @@ public class ServidorContexto {
 		this.receptor.start();
 	}
 	
+	@Override
+	protected void finalize() throws Throwable {
+		fechar();
+		super.finalize();
+	}
+	
 }

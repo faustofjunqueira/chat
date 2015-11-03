@@ -118,6 +118,8 @@ public class ClienteController {
 
 	@Override
 	protected void finalize() throws Throwable {
+		System.out.println("Finalize COntroller");
+		Dispatcher.Fechar();
 		atualizaViewThread.interrupt();
 		super.finalize();
 	}

@@ -12,6 +12,7 @@ import javax.swing.JTextArea;
 
 import chat.dominio.entidade.Mensagem;
 import chat.dominio.entidade.Sala;
+import chat.dominio.entidade.Usuario;
 
 public class ChatView {
 

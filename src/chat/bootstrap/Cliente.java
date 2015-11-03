@@ -43,6 +43,7 @@ public class Cliente {
 	private void iniciaController(){
 		ClienteController controller = new ClienteController();
 		controller.comecarApp();
+		System.out.println("dfasdfad sdfad fa");
 	}
 	
 //	private void Usuario1() {
