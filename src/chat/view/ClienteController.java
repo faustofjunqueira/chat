@@ -6,6 +6,7 @@ import java.util.List;
 import chat.dominio.entidade.Mensagem;
 import chat.dominio.entidade.Sala;
 import chat.dominio.entidade.Usuario;
+import chat.dominio.entidade.auxiliar.UsuarioSalaComponente;
 import chat.dominio.filtro.Filtro;
 import chat.dominio.repositorio.RepositorioContainer;
 import chat.infra.conexao.Requisicao;
@@ -116,6 +117,10 @@ public class ClienteController {
 		return usuario;
 	}
 
+	public void SairDaSala(){
+		Dispatcher.Invocar(new Requisicao<UsuarioSalaComponente>("SalaServico.sairDaSala", new UsuarioSalaComponente()));
+	}
+	
 	@Override
 	protected void finalize() throws Throwable {
 		System.out.println("Finalize COntroller");
