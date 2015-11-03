@@ -1,5 +1,6 @@
 package chat.view;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -93,7 +94,7 @@ public class ClienteController {
 
 	public void novaSala(Sala sala) {
 		ChatView salaView = null;
-		if ( (salaView = salaEstaAberta(sala)) == null) {
+		if ((salaView = salaEstaAberta(sala)) == null) {
 			salaView = new ChatView(this, sala);
 			salasAbertas.add(salaView);
 			renderChat(salaView);
@@ -117,13 +118,30 @@ public class ClienteController {
 		return usuario;
 	}
 
-	public void SairDaSala(){
-		Dispatcher.Invocar(new Requisicao<UsuarioSalaComponente>("SalaServico.sairDaSala", new UsuarioSalaComponente()));
+	public void SairDaSala(Sala sala, Usuario usuario) {
+		UsuarioSalaComponente componente = new UsuarioSalaComponente();
+		List<Usuario> usuarios = new ArrayList<>();
+		usuarios.add(usuario);
+		componente.setSala(sala);
+		componente.setUsuario(usuarios);
+		
+		Dispatcher.Invocar(new Requisicao<UsuarioSalaComponente>("SalaServico.sairDaSala", componente))
+				.pronto((b) -> {
+					System.out.println("Usuario saio da sala");
+				});
 	}
-	
+
+	public void adicionarUsuario(Sala sala, List<Usuario> usuarios) {
+		UsuarioSalaComponente componente = new UsuarioSalaComponente();
+		componente.setSala(sala);
+		componente.setUsuario(usuarios);
+		Dispatcher.Invocar(new Requisicao<UsuarioSalaComponente>("SalaServico.entraNaSala", componente)).pronto((b) -> {
+			System.out.println("Usuarios Adicionados");
+		});
+	}
+
 	@Override
 	protected void finalize() throws Throwable {
-		System.out.println("Finalize COntroller");
 		Dispatcher.Fechar();
 		atualizaViewThread.interrupt();
 		super.finalize();
