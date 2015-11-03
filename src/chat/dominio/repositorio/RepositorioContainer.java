@@ -15,28 +15,28 @@ public class RepositorioContainer {
 		return object;
 	}
 
-	private Repositorio<Mensagem, ?> mensagemRepositorio;
-	private Repositorio<Sala, ?> salaRepositorio;
-	private Repositorio<Usuario, ?> usuarioRepositorio;
+	private Repositorio<Mensagem> mensagemRepositorio;
+	private Repositorio<Sala> salaRepositorio;
+	private Repositorio<Usuario> usuarioRepositorio;
 
 	private RepositorioContainer() {
 	}
 
-	public final Repositorio<Mensagem, ?> Messagem() {
+	public final Repositorio<Mensagem> Messagem() {
 		if (mensagemRepositorio == null) {
 			mensagemRepositorio = new Repositorio<>();
 		}
 		return mensagemRepositorio;
 	}
 
-	public final Repositorio<Sala, ?> Sala() {
+	public final Repositorio<Sala> Sala() {
 		if (salaRepositorio == null) {
 			salaRepositorio = new Repositorio<>();
 		}
 		return salaRepositorio;
 	}
 
-	public final Repositorio<Usuario, ?> Usuario() {
+	public final Repositorio<Usuario> Usuario() {
 		if (usuarioRepositorio == null) {
 			usuarioRepositorio = new Repositorio<>();
 		}

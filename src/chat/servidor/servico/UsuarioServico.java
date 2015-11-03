@@ -16,12 +16,14 @@ public class UsuarioServico extends Servico{
 	}
 
 	public int criarUsuario(Requisicao<Usuario> requisicao) {
+		System.out.println("Usuario Criado " + requisicao.getDados().getNome());
 		Usuario usuario = requisicao.getDados();
 		usuario.setId(GeradorSerial.AutoIncremento());
 		return usuario.getId();
 	}
 	
 	public Mensagem entrar(Requisicao<Usuario> requisicao) {
+		System.out.println("Usuario logado " + requisicao.getDados().getNome());
 		UsuarioConectado usuarioConectado = new UsuarioConectado(requisicao.getDados(), getContexto(), requisicao.getHash());
 		SalasContainer.Instance().entrarUsuario(usuarioConectado);
 		return null;

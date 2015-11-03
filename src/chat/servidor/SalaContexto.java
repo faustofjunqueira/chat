@@ -22,15 +22,15 @@ class SalaContexto {
 		return sala;
 	}
 	
-	void entrar(UsuarioConectado usuario) {
+	synchronized void entrar(UsuarioConectado usuario) {
 		usuarios.add(usuario);
 	}
 	
-	void sair(UsuarioConectado usuario) {
+	synchronized void sair(UsuarioConectado usuario) {
 		usuarios.remove(usuarios);
 	}
 	
-	void enviarMensagem(Mensagem mensagem) {
+	synchronized void enviarMensagem(Mensagem mensagem) {
 		for(UsuarioConectado usuarioConectado : usuarios) {
 			usuarioConectado.enviarMensagem(mensagem);
 		}

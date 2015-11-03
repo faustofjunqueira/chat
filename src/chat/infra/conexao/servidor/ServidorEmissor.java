@@ -9,8 +9,9 @@ import chat.util.ProdutoConsumidor;
 public class ServidorEmissor extends ProdutoConsumidor<Resposta<?>> {
 
 	private ServidorContexto contexto;
-
+	
 	ServidorEmissor() {
+		
 	}
 
 	void setContexto(ServidorContexto contexto) {
@@ -32,7 +33,6 @@ public class ServidorEmissor extends ProdutoConsumidor<Resposta<?>> {
 				break;
 			}
 		}
-		
 		try {
 			contexto.fechar();
 		} catch (IOException e) {

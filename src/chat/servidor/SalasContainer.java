@@ -29,33 +29,33 @@ public class SalasContainer{
 		usuariosConectados = new LinkedList<>();
 	}
 	
-	public void entrarUsuario(UsuarioConectado usuario){
+	public synchronized void entrarUsuario(UsuarioConectado usuario){
 		usuariosConectados.add(usuario);
 	}
 	
-	public void sairUsuario(Usuario usuario){
+	public synchronized void sairUsuario(Usuario usuario){
 		UsuarioConectado usuarioConectado = encontrarUsuarioConectado(usuario);
 		usuariosConectados.remove(usuarioConectado);
 	}
 	
-	public int criarSala(Sala sala) {
+	public synchronized int criarSala(Sala sala) {
 		sala.setId(GeradorSerial.AutoIncremento());
 		salasAbertas.add(new SalaContexto(sala));
 		return sala.getId();
 	}
 	
-	public void removerSala(Sala sala) {
+	public synchronized void removerSala(Sala sala) {
 		SalaContexto salaContexto = encontrarSalaContexto(sala);
 		salasAbertas.remove(salaContexto);
 	}
 	
-	public void entrarNaSala(Usuario usuario, Sala sala){
+	public synchronized void entrarNaSala(Usuario usuario, Sala sala){
 		SalaContexto salaContexto = encontrarSalaContexto(sala);
 		UsuarioConectado usuarioConectado = encontrarUsuarioConectado(usuario);
 		salaContexto.entrar(usuarioConectado);
 	}
 	
-	public void sairDaSala(Usuario usuario, Sala sala) {
+	public synchronized void sairDaSala(Usuario usuario, Sala sala) {
 		SalaContexto salaContexto = encontrarSalaContexto(sala);
 		UsuarioConectado usuarioConectado = encontrarUsuarioConectado(usuario);
 		salaContexto.sair(usuarioConectado);

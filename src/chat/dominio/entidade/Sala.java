@@ -27,4 +27,13 @@ public class Sala extends Dominio {
 	public List<Usuario> getUsuarios(){
 		return usuario;
 	}
+	
+	public boolean usuarioEstaNaSala(Usuario usuario){
+		for (Usuario u : this.usuario) {
+			if(usuario.getId() == u.getId()){
+				return true;
+			}
+		}
+		return false;
+	}
 }

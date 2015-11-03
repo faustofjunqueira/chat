@@ -12,6 +12,7 @@ import chat.dominio.repositorio.RepositorioContainer;
 import chat.infra.conexao.Requisicao;
 import chat.infra.conexao.cliente.Dispatcher;
 import chat.infra.conexao.cliente.Ouvinte;
+import chat.view.ClienteController;
 
 public class Cliente {
 
@@ -30,7 +31,7 @@ public class Cliente {
 
 	private void iniciaPopuladorDoRepositorio(){
 		try{
-			popRepositorioThread = new Thread(new AtualizaChat(tempoDeAtrasoEmMilisegundos));
+			popRepositorioThread = new AtualizaChat(tempoDeAtrasoEmMilisegundos);
 			popRepositorioThread.start();
 		}catch(Exception e){
 			System.err.println("Erro ao iniciar Dispatcher");
@@ -39,7 +40,12 @@ public class Cliente {
 		}
 	}
 	
-	private void Usuario1() {
+	private void iniciaController(){
+		ClienteController controller = new ClienteController();
+		controller.comecarApp();
+	}
+	
+//	private void Usuario1() {
 //		Usuario usuario = new Usuario();
 //		Sala sala = new Sala();
 //
@@ -67,14 +73,14 @@ public class Cliente {
 //					System.out.println("Usuario logado");
 //				});
 
-	}
+//	}
 
 	
 	public static void main(String[] args) throws IOException {
 		Cliente cliente = new Cliente();
 		cliente.iniciaDispatcher();
 		cliente.iniciaPopuladorDoRepositorio();
-		
+		cliente.iniciaController();
 	}
 
 }

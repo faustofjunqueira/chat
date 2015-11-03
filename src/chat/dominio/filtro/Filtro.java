@@ -5,11 +5,19 @@ import java.util.function.Predicate;
 
 import chat.dominio.entidade.Dominio;
 
-public abstract class Filtro<D extends Dominio> {
+public class Filtro<D extends Dominio> {
+	
+	private Predicate<D> func;
+	
+	public Filtro(Predicate<D> func){
+		this.func = func;
+	}
 	
 	public boolean filtrar(D dominio){
 		return restricao().test(dominio);
 	}
 	
-	abstract Predicate<D> restricao();
+	public Predicate<D> restricao(){
+		return func;
+	}
 }

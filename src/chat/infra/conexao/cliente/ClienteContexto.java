@@ -13,7 +13,6 @@ class ClienteContexto {
 		if (objetoSingleton == null) {
 			objetoSingleton = new ClienteContexto();
 		}
-		
 		return objetoSingleton;
 	}
 
@@ -24,6 +23,12 @@ class ClienteContexto {
 
 	private ClienteContexto() {
 		BufferDeEnvio = new HashMap<>();
+	}
+	
+	public void printBuffer(){
+		for (Dispatcher d: BufferDeEnvio.values()) {
+			System.out.println(d.getStatus());
+		}
 	}
 	
 	void iniciarContexto(){
@@ -70,7 +75,7 @@ class ClienteContexto {
 				lista.add(d);
 			}
 		}
-
+		
 		if (lista.size() == 0) {
 			wait();
 			return getListaRequisicaoParaEnviar();

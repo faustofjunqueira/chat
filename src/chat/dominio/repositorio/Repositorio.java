@@ -7,7 +7,7 @@ import java.util.List;
 import chat.dominio.entidade.Dominio;
 import chat.dominio.filtro.Filtro;
 
-public class Repositorio<D extends Dominio, F extends Filtro<D>> implements IRepositorio<D, F> {
+public class Repositorio<D extends Dominio> implements IRepositorio<D> {
 
 	private ArrayList<D> buffer;
 
@@ -25,13 +25,18 @@ public class Repositorio<D extends Dominio, F extends Filtro<D>> implements IRep
 	}
 
 	@Override
-	public List<D> buscar(F filtro) {
+	public List<D> buscar(Filtro<D> filtro) {
 		List<D> resultado = new LinkedList<>();
-		for (D d : buffer) {
-			if (filtro == null || filtro.filtrar(d)) {
-				resultado.add(d);
+		if(filtro != null) {
+			for (D d : buffer) {
+				if (filtro.filtrar(d)) {
+					resultado.add(d);
+				}
 			}
+		} else {
+			resultado.addAll(buffer);
 		}
+		
 		return resultado;
 	}
 
@@ -60,7 +65,7 @@ public class Repositorio<D extends Dominio, F extends Filtro<D>> implements IRep
 	}
 
 	@Override
-	public IRepositorio<D, F> limpar() {
+	public IRepositorio<D> limpar() {
 		buffer.clear();
 		return this;
 	}

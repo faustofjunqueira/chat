@@ -8,11 +8,13 @@ import chat.dominio.repositorio.RepositorioContainer;
 import chat.infra.conexao.Requisicao;
 import chat.infra.conexao.cliente.Dispatcher;
 
-public class AtualizaChat implements Runnable{
+public class AtualizaChat extends Thread{
 
 	private long tempoDeAtraso;
 	
-	public AtualizaChat(long tempoDeAtrasoEmMilisegundos) {}
+	public AtualizaChat(long tempoDeAtrasoEmMilisegundos) {
+		this.tempoDeAtraso = tempoDeAtrasoEmMilisegundos;
+	}
 
 	@SuppressWarnings("unchecked")
 	private void buscaSalas(){

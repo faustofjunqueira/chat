@@ -5,7 +5,7 @@ import java.util.List;
 import chat.dominio.entidade.Dominio;
 import chat.dominio.filtro.Filtro;
 
-public interface IRepositorio<D extends Dominio, F extends Filtro> {
+public interface IRepositorio<D extends Dominio> {
 	/**
 	 * adicionar
 	 * remover
@@ -15,8 +15,8 @@ public interface IRepositorio<D extends Dominio, F extends Filtro> {
 	
 	void adicionar(D elemento);
 	void adicionarTodos(List<D> l);
-	List<D>  buscar(F filtro);
+	List<D>  buscar(Filtro<D> filtro);
 	void remover(Integer id);
 	D getPeloId(Integer id);
-	IRepositorio<D, F> limpar();
+	IRepositorio<D> limpar();
 }

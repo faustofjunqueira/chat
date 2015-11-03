@@ -8,7 +8,7 @@ import chat.infra.conexao.Resposta;
 public class ReceptorThread extends Thread {
 
 	private ClienteContexto contexto;
-
+	private int i = 0;
 	ReceptorThread() {
 		super();
 		contexto = ClienteContexto.Instance();
