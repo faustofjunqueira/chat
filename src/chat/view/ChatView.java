@@ -1,6 +1,8 @@
 package chat.view;
 
 import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowListener;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -10,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+
+import com.sun.glass.events.WindowEvent;
 
 import chat.dominio.entidade.Mensagem;
 import chat.dominio.entidade.Sala;
@@ -52,13 +56,13 @@ public class ChatView {
 	private String listaUsuarios()
 	{
 		String str = null;
-		
+
 		for(int i=0; i<=getSala().getUsuarios().size(); i++)
 		{
 			Usuario u = getSala().getUsuarios().get(i);
 			str = str + u.getNome();
 		}
-		
+
 		return str;
 	}
 	public void render(List<Mensagem> listaMensagens) {
@@ -66,11 +70,11 @@ public class ChatView {
 		// coisas da area de exibicao dos participantes da conversa
 		String usuarios = listaUsuarios();
 		JLabel listaUsuarios = new JLabel(usuarios);		
-		
+
 		// coisas da area de exibicao da conversa
 		JPanel conversa = new JPanel();
-		conversa.setLayout(new BoxLayout(listPane, BoxLayout.Y_AXIS));
-		
+		conversa.setLayout(new BoxLayout(conversa, BoxLayout.Y_AXIS));
+
 		areaConversa.setEditable(false);
 		areaConversa.setLineWrap(true);
 
@@ -97,10 +101,10 @@ public class ChatView {
 
 		// botao de sair
 		JButton botao2 = new JButton("Sair da Conversa");
-		
+
 		// botao de enviar
 		JButton botao1 = new JButton("Enviar");
-		
+
 		botao1.addActionListener((e) -> {
 			String texto = areaTexto.getText();
 			if (texto.length() > 0) {
@@ -112,7 +116,7 @@ public class ChatView {
 		JPanel botao = new JPanel();
 		botao.add(botao1);
 		botao.add(botao2);
-		
+
 		// painel final
 		JPanel painelF = new JPanel();
 
@@ -123,7 +127,8 @@ public class ChatView {
 
 		// coisas da janela
 		JFrame.setDefaultLookAndFeelDecorated(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.addWindowListener(wl);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setResizable(false);
 		frame.add(painelF);
 		frame.pack();
@@ -138,5 +143,13 @@ public class ChatView {
 		frame.setVisible(true);
 
 	}
+
+	// listener da janela para fechar bacana!
+	WindowAdapter wl = new WindowAdapter()
+	{
+			public void windowClosing(WindowEvent e) { 
+				// aqui vc cria as condicoes do bichinho ao sair
+			}  
+	};
 
 }
