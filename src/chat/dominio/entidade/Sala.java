@@ -4,6 +4,8 @@ import java.util.List;
 
 public class Sala extends Dominio {
 
+	
+	
 	private String nome;
 	private List<Usuario> usuario;
 	
@@ -28,12 +30,24 @@ public class Sala extends Dominio {
 		return usuario;
 	}
 	
+	public void setUsuarios(List<Usuario> usuario){
+		this.usuario = usuario;
+	}
+	
 	public boolean usuarioEstaNaSala(Usuario usuario){
 		for (Usuario u : this.usuario) {
-			if(usuario.getId() == u.getId()){
+			if(usuario.getId().equals(u.getId())){
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	public String gerarNomeSala(){
+		String nome = "";
+		for(Usuario u : usuario) {
+			nome += String.valueOf(u.getNome().charAt(0));
+		}
+		return nome;
 	}
 }

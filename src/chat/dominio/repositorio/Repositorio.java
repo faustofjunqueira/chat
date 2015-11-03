@@ -36,7 +36,6 @@ public class Repositorio<D extends Dominio> implements IRepositorio<D> {
 		} else {
 			resultado.addAll(buffer);
 		}
-		
 		return resultado;
 	}
 

@@ -9,6 +9,7 @@ import javax.swing.*;
 
 import chat.dominio.entidade.Sala;
 import chat.dominio.entidade.Usuario;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class ContatoView {
 
@@ -16,7 +17,8 @@ public class ContatoView {
 	private JPanel painelLista;
 	private JPanel painelConversas;
 	private ClienteController controller;
-
+	private List<JUsuarioCheckbox> checkboxUsuarios;
+	
 	public ContatoView(String nome, ClienteController controller) {
 		this.controller = controller;
 		frame = new JFrame(nome);
@@ -29,7 +31,8 @@ public class ContatoView {
 		painelConversas.removeAll();
 		
 		// check boxes:
-		List<JCheckBox> caixas = new ArrayList<JCheckBox>();
+		//List<JCheckBox> caixas = new ArrayList<JCheckBox>();
+		List<JSalaButton> salasButton = new ArrayList<>();
 
 		// layout
 		GridLayout layout = new GridLayout(listaDeSala.size(),2);
@@ -40,24 +43,23 @@ public class ContatoView {
 		painelConversas.setLayout(layout);
 
 		// situacao do for
-		int a = listaDeSala.size();
-		for(int i = 0; i<a; i++)
-		{
-			// fiz a checkbox e associei ela ao nome do calango.
-			caixas.add(new JCheckBox());
-
-			// add os calangos ao painel
-			painelConversas.add(caixas.get(i));
-			painelConversas.add(new JLabel(listaDeSala.get(i).getNome()));
+		for(Sala s: listaDeSala){
+			JSalaButton salabtn = new JSalaButton(s,controller);
+			salasButton.add(salabtn);
+			painelConversas.add(salabtn);
 		}
 		painelConversas.setVisible(true);
+	}
+	
+	public void setTituloPeloUsuario() {
+		frame.setTitle(frame.getTitle() + " - " + controller.getUsuario().getNome());
 	}
 	
 	public void renderizarContatos(List<Usuario> listaDeUsuario){
 		painelLista.setVisible(false);
 		painelLista.removeAll();
 		// check boxes:
-		List<JCheckBox> caixas = new ArrayList<JCheckBox>();
+		checkboxUsuarios = new ArrayList<JUsuarioCheckbox>(listaDeUsuario.size());
 
 		// layout
 		GridLayout layout = new GridLayout(listaDeUsuario.size(),2);
@@ -65,18 +67,16 @@ public class ContatoView {
 		layout.setVgap(5);
 
 		// painel
-		
 		painelLista.setLayout(layout);
 
 		// situacao do for
-		int a = listaDeUsuario.size();
-		for(int i = 0; i<a; i++)
-		{
+		for(Usuario u : listaDeUsuario){
 			// fiz a checkbox e associei ela ao nome do calango.
-			caixas.add(new JCheckBox());
+			JUsuarioCheckbox check = new JUsuarioCheckbox(u); 
+			checkboxUsuarios.add(check);
 			// add os calangos ao painel
-			painelLista.add(caixas.get(i));
-			painelLista.add(new JLabel(listaDeUsuario.get(i).getNome()));
+			painelLista.add(check);
+			painelLista.add(new JLabel(check.getUsuario().getNome()));
 		}
 		painelLista.setVisible(true);
 	}
@@ -86,7 +86,16 @@ public class ContatoView {
 		// painel da lista de contatos
 		// Botao de entrar:
 		JButton botao1 = new JButton("Entrar em Contato");
-		//botao1.addActionListener(entrarConversa);
+		botao1.addActionListener((e) -> {
+			List<Usuario> usuarios = new ArrayList<>();
+			for(JUsuarioCheckbox checkbox : checkboxUsuarios){
+				if(checkbox.isSelected()){
+					usuarios.add(checkbox.getUsuario());
+				}
+			}
+			controller.criarSala(usuarios);
+			//controller.renderChat();
+		});
 
 		JPanel listas = new JPanel();
 		listas.setPreferredSize(new Dimension(400, 500));
@@ -99,7 +108,10 @@ public class ContatoView {
 		// painel de conversas
 		// botao de continuar a conversa
 		JButton botao2 = new JButton("Voltar a Conversa");
-		//botao2.addActionListener(continuarConversa);
+		botao2.addActionListener((e) -> {
+			//TODO: fazer
+			throw new NotImplementedException();
+		});
 		
 		JPanel listas2 = new JPanel();
 		listas2.setLayout(new BoxLayout(listas2, BoxLayout.PAGE_AXIS));

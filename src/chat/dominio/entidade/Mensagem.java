@@ -1,5 +1,6 @@
 package chat.dominio.entidade;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Mensagem extends Dominio {
@@ -56,6 +57,17 @@ public class Mensagem extends Dominio {
 
 	public void setSala(Sala sala) {
 		this.sala = sala;
+	}
+	
+	public Calendar getHora(){
+		return hora;
+	}
+	
+	public String getHoraStr(){
+		Calendar c = Calendar.getInstance();  
+        SimpleDateFormat s = new SimpleDateFormat("HH:mm");  
+        String a = s.format(c.getTime());
+        return a;
 	}
 	
 	@Override
