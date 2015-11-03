@@ -55,12 +55,19 @@ public class ChatView {
 
 	private String listaUsuarios()
 	{
+<<<<<<< HEAD
 		String str = null;
 
 		for(int i=0; i<=getSala().getUsuarios().size(); i++)
 		{
 			Usuario u = getSala().getUsuarios().get(i);
 			str = str + u.getNome();
+=======
+		String str = "";
+		
+		for (Usuario u : getSala().getUsuarios()) {
+			str += u.getNome() + " ";
+>>>>>>> acbb052fb889d8f0692182fb1720ff0fe253cbdf
 		}
 
 		return str;
@@ -74,7 +81,11 @@ public class ChatView {
 		// coisas da area de exibicao da conversa
 		JPanel conversa = new JPanel();
 		conversa.setLayout(new BoxLayout(conversa, BoxLayout.Y_AXIS));
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> acbb052fb889d8f0692182fb1720ff0fe253cbdf
 		areaConversa.setEditable(false);
 		areaConversa.setLineWrap(true);
 
